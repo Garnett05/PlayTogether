@@ -6,6 +6,26 @@
              mc:Ignorable="d"
              x:Class="PlayTogether.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="lblWhite" >
+                <Setter Property="FontFamily" Value="Roboto" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+            <Style TargetType="Label" x:Key="lblBlueBaby" >
+                <Setter Property="FontFamily" Value="Roboto" />
+                <Setter Property="TextColor" Value="#00F0FF" />
+            </Style>
+            <Style TargetType="Entry" x:Key="entry1" >
+                <Setter Property="FontFamily" Value="Roboto" />
+                <Setter Property="PlaceholderColor" Value="#00F0FF" />
+                <Setter Property="TextColor" Value="#00F0FF" />
+            </Style>
+            <Style TargetType="Button" x:Key="btn1" >
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="BackgroundColor" Value="#00F0FF" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontFamily" Value="Roboto" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

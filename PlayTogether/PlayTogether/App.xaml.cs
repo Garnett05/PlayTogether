@@ -10,7 +10,7 @@ namespace PlayTogether
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new Login.LoginPage();
         }
 
         protected override void OnStart()
