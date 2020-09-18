@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PlayTogether.Home.HomePage"
+             BackgroundColor="#2F4259"
+             >
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding GameList}" Margin="10,0,0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="0.2*, *" Padding="10" HeightRequest="40" >                        
+                            <Image Source="valval.jpg" Grid.Column="0" Aspect="AspectFit" />
+                            <Label Text="{Binding name, Mode=TwoWay}" TextColor="White" Grid.Column="1" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

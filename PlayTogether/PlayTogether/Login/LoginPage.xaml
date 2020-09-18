@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="PlayTogether.Login.LoginPage"
-             BackgroundColor="#2F4259">
+             BackgroundColor="#2F4259"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
@@ -16,7 +17,7 @@
                 <StackLayout Margin="0, 15, 0, 0" >
                     <Entry Placeholder="Email" Margin="50, 0, 50, 0" Style="{StaticResource entry1}" />
                     <Entry Placeholder="Senha" Margin="50, 0, 50, 0" Style="{StaticResource entry1}" IsPassword="True" />
-                    <Button Text="Entrar" Margin="50, 0, 50, 0" Style="{StaticResource btn1}" />
+                    <Button Text="Entrar" Margin="50, 0, 50, 0" Style="{StaticResource btn1}" Command="{Binding GoHomePage}" />
                     <Label Text="Esqueceu sua senha?" HorizontalOptions="Center" Style="{StaticResource lblBlueBaby}" />
                 </StackLayout>                
             </StackLayout>

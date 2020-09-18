@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlayTogether.Network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,15 +8,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PlayTogether.Login
+namespace PlayTogether.Home
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage : ContentPage
+    public partial class HomePage : ContentPage
     {
-        public LoginPage(LoginViewModel viewModel)
+        public HomePage(HomeViewModel viewModel) 
         {
             InitializeComponent();
             BindingContext = viewModel;
-        }
+        }                
     }
 }
