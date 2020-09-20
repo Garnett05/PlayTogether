@@ -1,6 +1,0 @@
-pasta do banco: D:\APIs\Json-Server\db
-
-no cmd, estando posicionado na pasta do banco de dados, executar os comandos:
-
-json-server -v
-json-server --host 192.168.1.63 db.json
