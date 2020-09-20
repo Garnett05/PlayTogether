@@ -1,0 +1,29 @@
+{  
+    "games": [
+        {
+            "id": "1",
+            "name": "Valorant",
+            "description": "Valorant é o novo jogo FPS da Riot Games, a mesma desenvolvedora do League of Legends (LoL). Conhecido inicialmente como “Project A”, o game é um fps 5v5 tático que mistura elementos de Counter Strike: Global Offensive (CS:GO) com Overwatch."
+        },
+        {
+            "id": "2",
+            "name": "CS:GO",
+            "description": "Counter-Strike: Global Offensive (CS:GO) é um jogo online desenvolvido pela Valve Corporation e pela Hidden Path Entertainment, sendo uma sequência de Counter-Strike: Source. É o quarto título principal da franquia."
+        },
+        {
+            "id": "3",
+            "name": "Fortnite",
+            "description": "Fortnite é um jogo que une os modos Battle Royale, Salve o Mundo e um Modo Criativo. Disponível no PC, PS4, Xbox One, Nintendo Switch e, na versão Fortnite Mobile para celular Android e iPhone (iOS)."
+        },
+        {
+            "id": "4",
+            "name": "NBA 2K20",
+            "description": "NBA 2K transformou-se em algo muito maior que uma simulação de basquetebol. A 2K continua a redefinir o que é possível fazer em um jogo de esportes com NBA 2K20, com gráficos e jogabilidade de primeira, modos de jogo e controle e personalização de jogadores inigualáveis."
+        },
+        {
+            "id": "5",
+            "name": "Candy Crush",
+            "description": "Candy Crush Saga é um jogo de raciocínio para Android, iOS, Windows Phone e Facebook que tem como desafio combinar formatos de doces semelhantes com as suas respectivas cores."
+        }
+    ]
+}
