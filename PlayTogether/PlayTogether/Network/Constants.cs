@@ -11,7 +11,7 @@ namespace PlayTogether.Network
             return $"http://192.168.1.63:3000/games/{gameId}";
         }
         public static string GetAllGames()
-        {            
+        {
             return "http://192.168.1.63:3000/games";
         }
     }

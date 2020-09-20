@@ -2,10 +2,13 @@
 using PlayTogether.Network;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using System.Linq;
-using System;
 using PlayTogether.Services.Navigation;
+using System.Collections.Generic;
+using PlayTogether.Services.DialogMessage;
+using System.Windows.Input;
+using System.Linq;
+using Xamarin.Forms;
+using System;
 
 namespace PlayTogether.Home
 {
@@ -13,7 +16,8 @@ namespace PlayTogether.Home
     {
         private INetworkService _networkService;
         private INavigationService _navigation;
-        
+        private IDialogMessage _dialogMessage;
+
         private ObservableCollection<Games> _gameList;
         public ObservableCollection<Games> GameList
         {
@@ -24,28 +28,25 @@ namespace PlayTogether.Home
                 OnPropertyChanged("GameList");
             }
         }
-
-        public HomeViewModel(INetworkService networkService, INavigationService navigation)
+        public string SearchTerm { get; set; }
+        //TODO: Criar os métodos de pesquisa na lista public ICommand PerformSearchCommand { get => new Command(async () => await PerformSearch()); }        
+        public HomeViewModel(INetworkService networkService, INavigationService navigation, DialogMessage dialogMessage)
         {
             _networkService = networkService;
             _navigation = navigation;
+            _dialogMessage = dialogMessage;
             GetGamesData();
         }
         private async Task GetGamesData()
         {
-            try
-            {
-                var result = await _networkService.GetAsync<Games>(Constants.GetAllGames());
-                GameList = new ObservableCollection<Games>();
-                GameList.Add(result); //resultado obtido da informação da API local
-                //Mokando valores para exibição
-                GameList.Add(new Games { id = "2", name = "CS:GO" });
-                GameList.Add(new Games { id = "3", name = "Apex Legends" });
-                GameList.Add(new Games { id = "4", name = "Candy Crush" });
-            }
-            catch
-            {
-            }
+            var result = await _networkService.GetAsync<List<Games>>(Constants.GetAllGames());
+            GameList = new ObservableCollection<Games>(result);
         }
+        //TODO: Criar os métodos de pesquisa na lista
+        /*private async Task PerformSearch()
+        {
+            GameList.Select(x => x.name == SearchTerm);
+        }*/
+
     }
 }
