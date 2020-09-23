@@ -3,27 +3,32 @@
         {
             "id": "1",
             "name": "Valorant",
-            "description": "Valorant é o novo jogo FPS da Riot Games, a mesma desenvolvedora do League of Legends (LoL). Conhecido inicialmente como “Project A”, o game é um fps 5v5 tático que mistura elementos de Counter Strike: Global Offensive (CS:GO) com Overwatch."
+            "description": "Valorant é o novo jogo FPS da Riot Games, a mesma desenvolvedora do League of Legends (LoL). Conhecido inicialmente como “Project A”, o game é um fps 5v5 tático que mistura elementos de Counter Strike: Global Offensive (CS:GO) com Overwatch.",
+            "image_url": "https://pbs.twimg.com/profile_images/1295457884038467586/zflMaBTL.jpg"
         },
         {
             "id": "2",
             "name": "CS:GO",
-            "description": "Counter-Strike: Global Offensive (CS:GO) é um jogo online desenvolvido pela Valve Corporation e pela Hidden Path Entertainment, sendo uma sequência de Counter-Strike: Source. É o quarto título principal da franquia."
+            "description": "Counter-Strike: Global Offensive (CS:GO) é um jogo online desenvolvido pela Valve Corporation e pela Hidden Path Entertainment, sendo uma sequência de Counter-Strike: Source. É o quarto título principal da franquia.",
+            "image_url": "https://steamuserimages-a.akamaihd.net/ugc/291978765909847697/560265544E443D61FC4171CEAFFF2D94ED7076CE/"
         },
         {
             "id": "3",
             "name": "Fortnite",
-            "description": "Fortnite é um jogo que une os modos Battle Royale, Salve o Mundo e um Modo Criativo. Disponível no PC, PS4, Xbox One, Nintendo Switch e, na versão Fortnite Mobile para celular Android e iPhone (iOS)."
+            "description": "Fortnite é um jogo que une os modos Battle Royale, Salve o Mundo e um Modo Criativo. Disponível no PC, PS4, Xbox One, Nintendo Switch e, na versão Fortnite Mobile para celular Android e iPhone (iOS).",
+            "image_url": "https://i.pinimg.com/474x/6d/56/8f/6d568f8415f61464e487cbbebe1fb8c4.jpg"
         },
         {
             "id": "4",
             "name": "NBA 2K20",
-            "description": "NBA 2K transformou-se em algo muito maior que uma simulação de basquetebol. A 2K continua a redefinir o que é possível fazer em um jogo de esportes com NBA 2K20, com gráficos e jogabilidade de primeira, modos de jogo e controle e personalização de jogadores inigualáveis."
+            "description": "NBA 2K transformou-se em algo muito maior que uma simulação de basquetebol. A 2K continua a redefinir o que é possível fazer em um jogo de esportes com NBA 2K20, com gráficos e jogabilidade de primeira, modos de jogo e controle e personalização de jogadores inigualáveis.",
+            "image_url": "https://cdn.2kgames.com/web/common/images/nba2k20_tile_M_2.jpg"
         },
         {
             "id": "5",
             "name": "Candy Crush",
-            "description": "Candy Crush Saga é um jogo de raciocínio para Android, iOS, Windows Phone e Facebook que tem como desafio combinar formatos de doces semelhantes com as suas respectivas cores."
+            "description": "Candy Crush Saga é um jogo de raciocínio para Android, iOS, Windows Phone e Facebook que tem como desafio combinar formatos de doces semelhantes com as suas respectivas cores.",
+            "image_url": "https://pbs.twimg.com/profile_images/941111642108153856/n4mI0U-8_400x400.jpg"
         }
     ]
 }

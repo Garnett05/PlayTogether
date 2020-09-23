@@ -9,14 +9,13 @@
              NavigationPage.HasNavigationBar="False" >
     <ContentPage.Content>
         <StackLayout Margin="5">
-            <SearchBar Text="{Binding SearchTerm, Mode=TwoWay}"
-                       SearchCommand="{Binding PerformSearchCommand}" />
-            <RefreshView IsRefreshing="{Binding IsRefreshing}" />
+            <SearchBar Text="{Binding SearchTerm}"
+                       SearchCommand="{Binding PerformSearchCommand}" TextColor="White" CancelButtonColor="White" />
             <CollectionView ItemsSource="{Binding GameList}" Margin="10,0,0,10">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid ColumnDefinitions="0.2*, *" RowDefinitions="30, *" Padding="10" HeightRequest="75" RowSpacing="0" >
-                            <Image Source="valval.jpg" Grid.Column="0" Grid.RowSpan="2" Aspect="AspectFit" VerticalOptions="Center" />
+                            <Image Source="{Binding image_url}" Grid.Column="0" Grid.RowSpan="2" Aspect="AspectFit" VerticalOptions="Center" />
                             <Label Text="{Binding name}" TextColor="White" Grid.Column="1" Grid.Row="0" FontSize="20" />
                             <Label Text="{Binding description}" TextColor="White" Grid.Column="1" Grid.Row="1" FontSize="10" VerticalOptions="Start"/>
                         </Grid>
@@ -24,5 +23,5 @@
                 </CollectionView.ItemTemplate>
                 </CollectionView>
         </StackLayout>
-    </ContentPage.Content>
+    </ContentPage.Content>    
 </ContentPage>

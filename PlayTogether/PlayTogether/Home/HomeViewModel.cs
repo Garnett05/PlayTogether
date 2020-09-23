@@ -17,6 +17,7 @@ namespace PlayTogether.Home
         private INetworkService _networkService;
         private INavigationService _navigation;
         private IDialogMessage _dialogMessage;
+        private ObservableCollection<Games> GameData { get; set; }
 
         private ObservableCollection<Games> _gameList;
         public ObservableCollection<Games> GameList
@@ -28,8 +29,24 @@ namespace PlayTogether.Home
                 OnPropertyChanged("GameList");
             }
         }
-        public string SearchTerm { get; set; }
-        //TODO: Criar os métodos de pesquisa na lista public ICommand PerformSearchCommand { get => new Command(async () => await PerformSearch()); }        
+        public string _searchTerm;
+        public string SearchTerm
+        {
+            get { return _searchTerm; }
+            set
+            {
+                _searchTerm = value;
+                OnPropertyChanged("SearchTerm");
+                if (SearchTerm is null || SearchTerm.Length == 0)
+                {
+                    GameList.Clear();
+                    GameList = GameData;
+                }
+            }
+        }
+
+        public ICommand PerformSearchCommand { get => new Command(() => PerformSearch()); }
+
         public HomeViewModel(INetworkService networkService, INavigationService navigation, DialogMessage dialogMessage)
         {
             _networkService = networkService;
@@ -40,13 +57,21 @@ namespace PlayTogether.Home
         private async Task GetGamesData()
         {
             var result = await _networkService.GetAsync<List<Games>>(Constants.GetAllGames());
+            GameData = new ObservableCollection<Games>(result);
             GameList = new ObservableCollection<Games>(result);
         }
-        //TODO: Criar os métodos de pesquisa na lista
-        /*private async Task PerformSearch()
+        private void PerformSearch()
         {
-            GameList.Select(x => x.name == SearchTerm);
-        }*/
-
+            if (SearchTerm.Length > 0)
+            {
+                var v = GameData;
+                GameList = new ObservableCollection<Games>(v.Where(x => x.name == SearchTerm));
+            }
+            else
+            {
+                GameList.Clear();
+                GameList = GameData;
+            }
+        }
     }
 }
