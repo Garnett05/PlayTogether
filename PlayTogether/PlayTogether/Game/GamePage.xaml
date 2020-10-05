@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PlayTogether.Game.GamePage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#2F4259" >
+    <ContentPage.Content>
+        <StackLayout>
+            <Image Source="{Binding Game.image_url}" Margin="0, 30, 0, 0" />
+            <Label Text="{Binding Game.name}" FontSize="28" HorizontalOptions="Center" TextColor="White" />
+            <Frame BackgroundColor="#12A3A0" HeightRequest="450" CornerRadius="30" Margin="0, 0, 0, -50" >
+                <StackLayout>
+                    <Label Text="Grupos Disponíveis:" Margin="0, -5, 0, 0" TextColor="Black" FontSize="20" />
+                    <CollectionView ItemsLayout="VerticalGrid, 2"
+                                    ItemsSource="{Binding GroupsByGame}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Image Source="{Binding image_url}" />
+                                    <Label Text="{Binding name}" HorizontalOptions="Center" Margin="0, -5, 0, 10" TextColor="Black" />
+                                </StackLayout>                                
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

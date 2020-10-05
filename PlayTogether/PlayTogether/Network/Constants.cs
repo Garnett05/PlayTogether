@@ -8,11 +8,17 @@ namespace PlayTogether.Network
     {
         public static string GetGameById(string gameId)
         {
-            return $"http://192.168.1.63:3000/games/{gameId}";
+            //return $"http://192.168.1.63:3000/games/{gameId}";
+            return "https://localhost:44311/api/games/{gameId}";
         }
         public static string GetAllGames()
         {
-            return "http://192.168.1.63:3000/games";
+        //return "https://localhost:44311/api/games";
+        return "http://192.168.1.63:3000/games";
+        }
+        public static string GetAllGroups()
+        {            
+            return "http://192.168.1.63:3000/groups";
         }
     }
 }

@@ -30,5 +30,28 @@
             "description": "Candy Crush Saga é um jogo de raciocínio para Android, iOS, Windows Phone e Facebook que tem como desafio combinar formatos de doces semelhantes com as suas respectivas cores.",
             "image_url": "https://pbs.twimg.com/profile_images/941111642108153856/n4mI0U-8_400x400.jpg"
         }
+    ],
+    "groups": [
+        {
+            "id": "1",
+            "name": "Valorant - Grupo 1",
+            "image_url": "https://vgraphs.com/images/agents/reyna-avatar.jpg"
+
+        },
+        {
+            "id": "2",
+            "name": "Valorant - Grupo 2",
+            "image_url": "https://vgraphs.com/images/agents/jett-avatar.jpg"
+        },
+        {
+            "id": "3",
+            "name": "Valorant - Grupo 3",
+            "image_url": "https://vgraphs.com/images/agents/phoenix-avatar.jpg"
+        },
+        {
+            "id": "4",
+            "name": "Valorant - Grupo 4",
+            "image_url": "https://i.redd.it/cwzntyd3o5c51.jpg"
+        }
     ]
 }

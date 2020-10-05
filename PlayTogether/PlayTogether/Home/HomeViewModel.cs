@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Linq;
 using Xamarin.Forms;
 using System;
+using PlayTogether.Game;
 
 namespace PlayTogether.Home
 {
@@ -16,7 +17,9 @@ namespace PlayTogether.Home
     {
         private INetworkService _networkService;
         private INavigationService _navigation;
-        private IDialogMessage _dialogMessage;
+        //private IDialogMessage _dialogMessage; 
+        private Games _selectedGame;
+        private int _selectedGameId;
         private ObservableCollection<Games> GameData { get; set; }
 
         private ObservableCollection<Games> _gameList;
@@ -44,14 +47,34 @@ namespace PlayTogether.Home
                 }
             }
         }
+        public Games SelectedGame
+        {
+            get { return _selectedGame; }
+            set
+            {
+                _selectedGame = value;
+                OnPropertyChanged("SelectedGame");
+            }
+        }
+        public int SelectedGameId
+        {
+            get { return _selectedGameId; }
+            set
+            {
+                _selectedGameId = value;
+                OnPropertyChanged("SelectedGameId");
+            }
+        }
 
         public ICommand PerformSearchCommand { get => new Command(() => PerformSearch()); }
+        public ICommand GameChangedCommand { get => new Command(async () => await GoToGameDetails()); }
+        
 
         public HomeViewModel(INetworkService networkService, INavigationService navigation, DialogMessage dialogMessage)
         {
             _networkService = networkService;
             _navigation = navigation;
-            _dialogMessage = dialogMessage;
+            //_dialogMessage = dialogMessage;
             GetGamesData();
         }
         private async Task GetGamesData()
@@ -72,6 +95,16 @@ namespace PlayTogether.Home
                 GameList.Clear();
                 GameList = GameData;
             }
+        }
+        private async Task GoToGameDetails()
+        {
+            if (SelectedGame == null)
+            {
+                return;
+            }
+            SelectedGameId = SelectedGame.id;
+            await _navigation.PushAsync<GameViewModel>(SelectedGame);
+            SelectedGame = null;
         }
     }
 }
