@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PlayTogether.CreateGroup.CreateGroupPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#2F4259">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="StartAndExpand" Margin="10, 0, 10, 0" >
+            <Image Source="https://cdn0.iconfinder.com/data/icons/action-states-vol-2-flat/48/Action___States_-_Vol._2-21-512.png" HeightRequest="50" HorizontalOptions="StartAndExpand" VerticalOptions="Start" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <StackLayout Orientation="Horizontal" Margin="0, 10, 0, 0" >
+                <Image Source="{Binding Game.image_url}" HeightRequest="50" />
+                <Label Text="{Binding Game.name}" FontSize="30" TextColor="White" />
+            </StackLayout>
+            <Label Text="Nome do Grupo:" FontSize="30" TextColor="White" HorizontalOptions="Center" Margin="0, 80, 0, 0" />
+            <Entry Placeholder="Digite aqui" HeightRequest="50" FontSize="22" PlaceholderColor="#C7EEFF" TextColor="Aqua" />
+            <Label Text="Número de integrantes:" FontSize="30" TextColor="White" HorizontalOptions="Center"  />
+            <Slider Maximum="6" Minimum="2" ThumbColor="Red" Value="{Binding SliderValue, Mode=TwoWay}" />
+            <Label Text="{Binding SliderValue}" FontSize="30" TextColor="White" HorizontalOptions="Center" />
+            <Button Text="Criar" Margin="50, 40, 50, 0" Style="{StaticResource btn1}" Command="{Binding GoHomePage}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

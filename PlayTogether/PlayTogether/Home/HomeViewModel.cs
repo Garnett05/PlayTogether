@@ -70,7 +70,7 @@ namespace PlayTogether.Home
         public ICommand GameChangedCommand { get => new Command(async () => await GoToGameDetails()); }
         
 
-        public HomeViewModel(INetworkService networkService, INavigationService navigation, DialogMessage dialogMessage)
+        public HomeViewModel(INetworkService networkService, INavigationService navigation)
         {
             _networkService = networkService;
             _navigation = navigation;
@@ -102,7 +102,6 @@ namespace PlayTogether.Home
             {
                 return;
             }
-            SelectedGameId = SelectedGame.id;
             await _navigation.PushAsync<GameViewModel>(SelectedGame);
             SelectedGame = null;
         }

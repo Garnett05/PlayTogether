@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using PlayTogether.CreateGroup;
 using PlayTogether.Game;
+using PlayTogether.Group;
 using PlayTogether.Home;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,8 @@ namespace PlayTogether.Services.Navigation
             // TODO: URL mapping goes here
               { typeof(HomeViewModel), typeof(HomePage) },
             { typeof(GameViewModel), typeof(GamePage)},
+            { typeof(CreateGroupViewModel), typeof(CreateGroupPage)},
+            { typeof(GroupViewModel), typeof(GroupPage)},
         };
 
         public NavigationService(Func<INavigation> navigation, IComponentContext container)

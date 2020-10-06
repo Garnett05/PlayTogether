@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PlayTogether.Group.GroupPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#2F4259" >
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="StartAndExpand" Margin="10, 0, 10, 0" >
+            <Image Source="https://cdn0.iconfinder.com/data/icons/action-states-vol-2-flat/48/Action___States_-_Vol._2-21-512.png" HeightRequest="50" HorizontalOptions="StartAndExpand" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <StackLayout Orientation="Horizontal" Margin="0, 10, 0, 0" >
+                <Image Source="{Binding Group.image_url}" HeightRequest="70" />
+                <Label Text="{Binding Group.name}" FontSize="30" TextColor="White" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Margin="0, 0, 15, 0" />
+            </StackLayout>
+            <Frame BackgroundColor="#12A3A0" HeightRequest="135" CornerRadius="30" Margin="0, 25, 0, 00" Padding="0" >
+                <StackLayout>
+                    <Label Text="Integrantes - 3/4" Margin="20, 5, 0, 0" FontSize="14" TextColor="Black" />                                                            
+                        <Grid RowDefinitions="Auto" ColumnDefinitions="*, *, *, *" >
+                        <StackLayout Margin="5" Grid.Column="0" >
+                            <Image Source="https://toppng.com/uploads/preview/icone-homem-man-icon-11553494437bgj8eja2bq.png" HeightRequest="50" />
+                            <Label Text="User 1" HorizontalOptions="Center" TextColor="Black" />
+                        </StackLayout>
+                        <StackLayout Margin="5" Grid.Column="1" >
+                            <Image Source="https://toppng.com/uploads/preview/icone-homem-man-icon-11553494437bgj8eja2bq.png" HeightRequest="50" />
+                            <Label Text="User 2" HorizontalOptions="Center" TextColor="Black" />
+                        </StackLayout>
+                        <StackLayout Margin="5" Grid.Column="2" >
+                            <Image Source="https://toppng.com/uploads/preview/icone-homem-man-icon-11553494437bgj8eja2bq.png" HeightRequest="50" />
+                            <Label Text="User 3" HorizontalOptions="Center" TextColor="Black" />
+                        </StackLayout>
+                    </Grid>                    
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
