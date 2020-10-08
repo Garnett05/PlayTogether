@@ -20,5 +20,13 @@ namespace PlayTogether.Network
         {            
             return "http://192.168.1.63:3000/groups";
         }
+        public static string GetAllUsers()
+        {
+            return "http://192.168.1.63:3000/users";
+        }
+        public static string GetUserById(string user)
+        {
+            return $"http://192.168.1.63:3000/users/{user}";
+        }
     }
 }

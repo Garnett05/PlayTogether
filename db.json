@@ -52,6 +52,38 @@
             "id": "4",
             "name": "Valorant - Grupo 4",
             "image_url": "https://i.redd.it/cwzntyd3o5c51.jpg"
+        },
+        {
+            "id": "5",
+            "name": "Valorant - Grupo 5",
+            "image_url": "https://vgraphs.com/images/agents/reyna-avatar.jpg"
+
+        },
+        {
+            "id": "6",
+            "name": "Valorant - Grupo 6",
+            "image_url": "https://vgraphs.com/images/agents/jett-avatar.jpg"
+        },
+        {
+            "id": "7",
+            "name": "Valorant - Grupo 7",
+            "image_url": "https://vgraphs.com/images/agents/phoenix-avatar.jpg"
+        },
+        {
+            "id": "8",
+            "name": "Valorant - Grupo 8",
+            "image_url": "https://i.redd.it/cwzntyd3o5c51.jpg"
+        }
+    ],
+    "users": [
+        {
+            "id": "1",
+            "name": "Joel",
+            "age": "22",
+            "nickname": "Jarbas",
+            "email": "cmota@apd.com.br",
+            "password": "Abc123",
+            "user_image": "https://lh3.googleusercontent.com/proxy/dE_5IRJkCtCnoHuWfF-Pu57qR5YqNfYh8YuZ5JVl4vvABa16Jle9byTTipaIy1ZicoZOdyOgT7DI0MzlJrQwgaJnQkTLeKirbiNTLVM7BmK6uuFZpEzkYQ8T-fKiXCKV-PMtyjoXX21PMwt7Jncb0i5c9v7e46TFvC_wdaqKnaaSg-JgviLb"
         }
     ]
 }

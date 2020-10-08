@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PlayTogether.User.UserPage"
+             Title="Usuário"
+             IconImageSource="ic_people.png" >
+    <ContentPage.Content>
+        <StackLayout >
+            <Label Text="Flipper" FontSize="30" TextColor="White" HorizontalOptions="Center" VerticalOptions="Start" Margin="0, 0, 15, 0" />
+            <Frame BackgroundColor="#12A3A0" HeightRequest="700" CornerRadius="30" Margin="0, 130, 0, -40" Padding="0" >
+                <StackLayout HeightRequest="10" >
+                    <Grid RowDefinitions="*, *" ColumnDefinitions="Auto, *, *" >
+                    <Image Source="https://www.pngarts.com/files/5/User-Avatar-Transparent.png" HeightRequest="85" Margin="10, 10, 0, 0" Grid.Column="0" Grid.RowSpan="2" />
+                        <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5, -45, 0, 0" Spacing="0" >
+                            <Label Text="{Binding User.name}" TextColor="Black" FontSize="24" />
+                            <Label Text="{Binding User.nickname}" TextColor="Black" FontSize="12" FontAttributes="Bold" Margin="1" />
+                        </StackLayout>
+                        <Label Text="        51
+                           Seguidores" TextColor="Black" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" Margin="5, 0, 0, 0" />
+                        <Label Text="      90
+                           Seguindo" TextColor="Black" Grid.Row="1" Grid.Column="2" VerticalTextAlignment="Center" Margin="-20, 0, 0, 0" />
+                    </Grid>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

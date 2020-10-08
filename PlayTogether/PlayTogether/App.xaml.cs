@@ -11,7 +11,7 @@ namespace PlayTogether
         public App()
         {
             InitializeComponent();
-
+            
             //class used for build the registration
             var builder = new ContainerBuilder();
             //scan and register all classes in the assembly
@@ -32,6 +32,10 @@ namespace PlayTogether
             var container = builder.Build();
             navigationPage = new NavigationPage(container.Resolve<Login.LoginPage>());
             MainPage = navigationPage;
+        }
+        public static class Globais
+        {
+            public static int userId;
         }
 
         protected override void OnStart()

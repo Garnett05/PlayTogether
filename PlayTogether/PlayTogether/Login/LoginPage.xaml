@@ -15,8 +15,8 @@
                     <Label Text="Aqui você consegue achar novos amigos para jogar, além de se organizar com os seus amigos para jogar partidas personalizadas com outras pessoas da comunidade" Margin="10, 10, 10, 0" HorizontalOptions="Center" Style="{StaticResource lblWhite}" FontSize="12" />
                 </StackLayout>
                 <StackLayout Margin="0, 15, 0, 0" >
-                    <Entry Placeholder="Email" Margin="50, 0, 50, 0" Style="{StaticResource entry1}" />
-                    <Entry Placeholder="Senha" Margin="50, 0, 50, 0" Style="{StaticResource entry1}" IsPassword="True" />
+                    <Entry Placeholder="Email" Margin="50, 0, 50, 0" Style="{StaticResource entry1}" Text="{Binding Email}" />
+                    <Entry Placeholder="Senha" Margin="50, 0, 50, 0" Style="{StaticResource entry1}" IsPassword="True" Text="{Binding Password}" />
                     <Button Text="Entrar" Margin="50, 0, 50, 0" Style="{StaticResource btn1}" Command="{Binding GoHomePage}" />
                     <Label Text="Esqueceu sua senha?" HorizontalOptions="Center" Style="{StaticResource lblBlueBaby}" />
                 </StackLayout>                

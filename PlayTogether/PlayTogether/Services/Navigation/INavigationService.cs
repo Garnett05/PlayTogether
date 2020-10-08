@@ -3,6 +3,7 @@ using PlayTogether.CreateGroup;
 using PlayTogether.Game;
 using PlayTogether.Group;
 using PlayTogether.Home;
+using PlayTogether.TabbedHome;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace PlayTogether.Services.Navigation
             { typeof(GameViewModel), typeof(GamePage)},
             { typeof(CreateGroupViewModel), typeof(CreateGroupPage)},
             { typeof(GroupViewModel), typeof(GroupPage)},
+            { typeof(TabbedHomeViewModel), typeof(TabbedHomePage)},
         };
 
         public NavigationService(Func<INavigation> navigation, IComponentContext container)

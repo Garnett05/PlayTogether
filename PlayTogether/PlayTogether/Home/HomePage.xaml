@@ -6,9 +6,12 @@
              mc:Ignorable="d"
              x:Class="PlayTogether.Home.HomePage"
              BackgroundColor="#2F4259"
-             NavigationPage.HasNavigationBar="False" >
+             NavigationPage.HasNavigationBar="False"
+             Title="Home"
+             IconImageSource="ic_home.png">
     <ContentPage.Content>
         <StackLayout Margin="5">
+            <Label Text="Flipper" FontSize="30" TextColor="White" HorizontalOptions="Center" VerticalOptions="StartAndExpand" Margin="0, 0, 15, 0" />
             <SearchBar Text="{Binding SearchTerm}"
                        SearchCommand="{Binding PerformSearchCommand}" TextColor="White" CancelButtonColor="White" />
             <CollectionView ItemsSource="{Binding GameList}" Margin="10,0,0,10"
