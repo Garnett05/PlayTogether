@@ -10,6 +10,7 @@ using System.Linq;
 using Xamarin.Forms;
 using System;
 using PlayTogether.Game;
+using Newtonsoft.Json;
 
 namespace PlayTogether.Home
 {
@@ -68,7 +69,9 @@ namespace PlayTogether.Home
 
         public ICommand PerformSearchCommand { get => new Command(() => PerformSearch()); }
         public ICommand GameChangedCommand { get => new Command(async () => await GoToGameDetails()); }
-        
+        //public ICommand DeleteCommand { get => new Command(() => DeleteGame()); }
+        //public ICommand CreateCommand { get => new Command(async () => await CreateGame()); }
+
 
         public HomeViewModel(INetworkService networkService, INavigationService navigation)
         {
@@ -105,5 +108,15 @@ namespace PlayTogether.Home
             await _navigation.PushAsync<GameViewModel>(SelectedGame);
             SelectedGame = null;
         }
+        /*private async void DeleteGame()
+        {
+            await _networkService.DeleteAsync(Constants.DeleteGame(12));            
+        }
+        private async Task CreateGame()
+        {
+            Games gm = new Games() { name = "Name test", description = "Description test", imageUrl = "url test"};            
+            string json = JsonConvert.SerializeObject(gm);
+            var result = await _networkService.PostAsync<Games>(Constants.GetAllGames(), json);
+        }*/
     }
 }

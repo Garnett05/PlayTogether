@@ -13,8 +13,8 @@ namespace PlayTogether.Network
         }
         public static string GetAllGames()
         {
-        //return "https://localhost:44311/api/games";
-        return "http://192.168.1.63:3000/games";
+            return "http://192.168.1.63:3000/games";
+            //return "https://flipperapp.azurewebsites.net/api/games";
         }
         public static string GetAllGroups()
         {            
@@ -27,6 +27,10 @@ namespace PlayTogether.Network
         public static string GetUserById(string user)
         {
             return $"http://192.168.1.63:3000/users/{user}";
+        }
+        public static string DeleteGame(int id)
+        {
+            return $"https://flipperapp.azurewebsites.net/api/games/{id}";
         }
     }
 }

@@ -10,21 +10,56 @@
     <ContentPage.Content>
         <StackLayout >
             <Label Text="Flipper" FontSize="30" TextColor="White" HorizontalOptions="Center" VerticalOptions="Start" Margin="0, 0, 15, 0" />
-            <Frame BackgroundColor="#12A3A0" HeightRequest="700" CornerRadius="30" Margin="0, 130, 0, -40" Padding="0" >
-                <StackLayout HeightRequest="10" >
-                    <Grid RowDefinitions="*, *" ColumnDefinitions="Auto, *, *" >
-                    <Image Source="https://www.pngarts.com/files/5/User-Avatar-Transparent.png" HeightRequest="85" Margin="10, 10, 0, 0" Grid.Column="0" Grid.RowSpan="2" />
-                        <StackLayout Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="5, -45, 0, 0" Spacing="0" >
-                            <Label Text="{Binding User.name}" TextColor="Black" FontSize="24" />
-                            <Label Text="{Binding User.nickname}" TextColor="Black" FontSize="12" FontAttributes="Bold" Margin="1" />
+            <StackLayout>
+                <Frame BackgroundColor="#12A3A0" HeightRequest="700" CornerRadius="30" Margin="0, 50, 0, -40" Padding="0" >
+                    <StackLayout Spacing="0" Padding="0">
+                        <StackLayout HeightRequest="220">
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout Margin="10, 10, 0, 0" >
+                                    <Image Source="https://www.pngarts.com/files/5/User-Avatar-Transparent.png" HeightRequest="85" />
+                                    <Label Text="Alterar avatar" HorizontalOptions="Center" TextColor="Black" >
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding UpdateUserAvatarCommand}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </StackLayout>
+                                <StackLayout Margin="0, 20, 0, 0">
+                                    <Label Text="{Binding User.name}" TextColor="Black" FontSize="24" />
+                                    <Label Text="{Binding User.nickname}" TextColor="Black" FontSize="12" FontAttributes="Bold" Margin="1" />
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, 5, 0, 0" >
+                                <StackLayout Margin="0, 0, 30, 0" >
+                                    <Label Text="Seguidores" FontSize="16" TextColor="Black" />
+                                    <Label Text="51" FontSize="16" TextColor="Black" HorizontalOptions="Center" />
+                                </StackLayout>
+                                <StackLayout >
+                                    <Label Text="Seguindo" FontSize="16" TextColor="Black" />
+                                    <Label Text="90" FontSize="16" TextColor="Black" HorizontalOptions="Center" />
+                                </StackLayout>
+                            </StackLayout>
                         </StackLayout>
-                        <Label Text="        51
-                           Seguidores" TextColor="Black" Grid.Row="1" Grid.Column="1" VerticalTextAlignment="Center" Margin="5, 0, 0, 0" />
-                        <Label Text="      90
-                           Seguindo" TextColor="Black" Grid.Row="1" Grid.Column="2" VerticalTextAlignment="Center" Margin="-20, 0, 0, 0" />
-                    </Grid>
-                </StackLayout>
-            </Frame>
+                        <Frame HeightRequest="210" BackgroundColor="AliceBlue" CornerRadius="10" Margin="5, -15, 5, 0" >
+                            <StackLayout Padding="0" Spacing="0" >
+                                <Label Text="Mais Jogados"  HorizontalOptions="Start" TextColor="Black" FontSize="24" Margin="0, 0, 0, 35"/>
+                                <CollectionView
+                                ItemsLayout="HorizontalGrid, 1"
+                                ItemsSource="{Binding GamesCollection}"
+                                SelectionMode="None" >
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Margin="25, 0, 25, 0" >
+                                                <Image Source="{Binding imageUrl}" HeightRequest="70" />
+                                                <Label Text="{Binding name}" TextColor="Black" HorizontalOptions="Center" FontSize="20" />
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>                    
+                </Frame>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -10,6 +10,9 @@ using Xamarin.Forms;
 using PlayTogether.Services.DialogMessage;
 using PlayTogether.TabbedHome;
 using static PlayTogether.App;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace PlayTogether.Login
 {
@@ -42,6 +45,8 @@ namespace PlayTogether.Login
         private Users User { get; set; }
 
         public ICommand GoHomePage => new Command(PushHome);
+        public ICommand ForgotPasswordCommand { get => new Command(async () => await ForgotPassword()); }
+        public ICommand CreateAccountCommand { get => new Command(async () => await CreateAccount()); }
 
         public LoginViewModel (INavigationService navigation, INetworkService network, IDialogMessage dialogMessage)
         {
@@ -52,23 +57,38 @@ namespace PlayTogether.Login
 
         private async void PushHome()
         {
-            var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());            
-            User = result.Where(x => x.email == Email).FirstOrDefault();
-            if (User == null)
+            try
             {
-                await _navigation.PushAsync<TabbedHomeViewModel>();
-                //await _dialogMessage.DisplayAlert("Não encontrado", "Não existe um usuário com este e-mail.", "Ok");
+                var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
+                User = result.Where(x => x.email == Email).FirstOrDefault();
+                if (User == null)
+                {
+                    //await _navigation.PushAsync<TabbedHomeViewModel>();
+                    await _dialogMessage.DisplayAlert("Não encontrado", "Não existe um usuário com este e-mail.", "Ok");
+                }
+                else if (User.password != Password)
+                {
+                    await _dialogMessage.DisplayAlert("Senha incorreta", "A senha digitada está incorreta. Tente novamente.", "Ok");
+                }
+                else
+                {
+                    Globais.userId = User.id;
+                    await _navigation.PushAsync<TabbedHomeViewModel>(User);
+                    result.Clear();
+                }
             }
-            else if (User.password != Password)
+            catch(WebException)
             {
-                await _dialogMessage.DisplayAlert("Senha incorreta", "A senha digitada está incorreta. Tente novamente.", "Ok");
+                await _dialogMessage.DisplayAlert("Erro", "Verifique sua conexão com a internet para prosseguir com o login.", "Ok");
             }
-            else
-            {
-                Globais.userId = User.id;
-                await _navigation.PushAsync<TabbedHomeViewModel>(User);                
-                result.Clear();
-            }            
+        }
+        private async Task ForgotPassword()
+        {
+            await _dialogMessage.DisplayAlert("Aviso", "Este recurso está desabilitado no momento. Entre em contato com os desenvolvedores para que seu acesso seja ajustado.", "Ok");
+        }
+        private async Task CreateAccount()
+        {
+            await _dialogMessage.DisplayAlert("Aviso", "Este recurso está desabilitado no momento. Entre em contato com os desenvolvedores para que a sua conta seja criada.", "Ok");
         }
     }
 }

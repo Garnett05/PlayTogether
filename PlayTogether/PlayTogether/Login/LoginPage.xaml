@@ -18,10 +18,18 @@
                     <Entry Placeholder="Email" Margin="50, 0, 50, 0" Style="{StaticResource entry1}" Text="{Binding Email}" />
                     <Entry Placeholder="Senha" Margin="50, 0, 50, 0" Style="{StaticResource entry1}" IsPassword="True" Text="{Binding Password}" />
                     <Button Text="Entrar" Margin="50, 0, 50, 0" Style="{StaticResource btn1}" Command="{Binding GoHomePage}" />
-                    <Label Text="Esqueceu sua senha?" HorizontalOptions="Center" Style="{StaticResource lblBlueBaby}" />
+                    <Label Text="Esqueceu sua senha?" HorizontalOptions="Center" Style="{StaticResource lblBlueBaby}" >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </StackLayout>                
             </StackLayout>
-            <Label Text="Crie sua conta" Style="{StaticResource lblBlueBaby}" VerticalOptions="EndAndExpand" HorizontalOptions="Center" Margin="0, 0, 0, 20" />
+            <Label Text="Crie sua conta" Style="{StaticResource lblBlueBaby}" VerticalOptions="EndAndExpand" HorizontalOptions="Center" Margin="0, 0, 0, 20" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CreateAccountCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
