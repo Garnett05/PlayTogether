@@ -32,5 +32,9 @@ namespace PlayTogether.Network
         {
             return $"https://flipperapp.azurewebsites.net/api/games/{id}";
         }
+        public static string GetAllGroupsxUsers()
+        {
+            return "http://192.168.1.63:3000/groupsxusers";
+        }
     }
 }

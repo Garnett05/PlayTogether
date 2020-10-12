@@ -10,5 +10,7 @@ namespace PlayTogether.Models
         public string name { get; set; }
         public string description { get; set; }
         public string imageUrl { get; set; }
+        public string minPlayers { get; set; }
+        public string maxPlayers { get; set; }
     }
 }

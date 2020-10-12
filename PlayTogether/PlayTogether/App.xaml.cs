@@ -35,7 +35,8 @@ namespace PlayTogether
         }
         public static class Globais
         {
-            public static int userId;
+            public static int userId = 0;
+            public static int idGame = 0; //Necessário para poder carregar o min e max do slider
         }
 
         protected override void OnStart()

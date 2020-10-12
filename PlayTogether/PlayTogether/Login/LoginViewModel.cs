@@ -63,8 +63,8 @@ namespace PlayTogether.Login
                 User = result.Where(x => x.email == Email).FirstOrDefault();
                 if (User == null)
                 {
-                    //await _navigation.PushAsync<TabbedHomeViewModel>();
-                    await _dialogMessage.DisplayAlert("Não encontrado", "Não existe um usuário com este e-mail.", "Ok");
+                    await _navigation.PushAsync<TabbedHomeViewModel>();
+                    //await _dialogMessage.DisplayAlert("Não encontrado", "Não existe um usuário com este e-mail.", "Ok");
                 }
                 else if (User.password != Password)
                 {

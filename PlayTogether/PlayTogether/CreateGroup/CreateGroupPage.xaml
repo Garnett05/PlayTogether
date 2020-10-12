@@ -19,11 +19,12 @@
                 <Label Text="{Binding Game.name}" FontSize="30" TextColor="White" />
             </StackLayout>
             <Label Text="Nome do Grupo:" FontSize="30" TextColor="White" HorizontalOptions="Center" Margin="0, 80, 0, 0" />
-            <Entry Placeholder="Digite aqui" HeightRequest="50" FontSize="22" PlaceholderColor="#C7EEFF" TextColor="Aqua" />
+            <Entry Placeholder="Digite aqui" HeightRequest="50" FontSize="22" PlaceholderColor="#C7EEFF" TextColor="Aqua" Text="{Binding GroupName}" />
             <Label Text="Número de integrantes:" FontSize="30" TextColor="White" HorizontalOptions="Center"  />
-            <Slider Maximum="6" Minimum="2" ThumbColor="Red" Value="{Binding SliderValue, Mode=TwoWay}" />
+            <Slider Maximum="10" Minimum="2" ThumbColor="Red" Value="{Binding SliderValue, Mode=TwoWay}" />
+            <!--<Slider Maximum="{Binding MaximumSliderValue}" Minimum="{Binding MinimumSliderValue}" ThumbColor="Red" Value="{Binding SliderValue, Mode=TwoWay}" />-->
             <Label Text="{Binding SliderValue}" FontSize="30" TextColor="White" HorizontalOptions="Center" />
-            <Button Text="Criar" Margin="50, 40, 50, 0" Style="{StaticResource btn1}" Command="{Binding GoHomePage}" />
+            <Button Text="Criar" Margin="50, 40, 50, 0" Style="{StaticResource btn1}" Command="{Binding CreateGroupCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

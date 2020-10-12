@@ -112,11 +112,13 @@ namespace PlayTogether.Home
         {
             await _networkService.DeleteAsync(Constants.DeleteGame(12));            
         }
+        
         private async Task CreateGame()
         {
             Games gm = new Games() { name = "Name test", description = "Description test", imageUrl = "url test"};            
             string json = JsonConvert.SerializeObject(gm);
             var result = await _networkService.PostAsync<Games>(Constants.GetAllGames(), json);
-        }*/
+        }
+        */
     }
 }

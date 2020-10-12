@@ -18,25 +18,25 @@
                 <Image Source="{Binding Group.image_url}" HeightRequest="70" />
                 <Label Text="{Binding Group.name}" FontSize="30" TextColor="White" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Margin="0, 0, 15, 0" />
             </StackLayout>
-            <Frame BackgroundColor="#12A3A0" HeightRequest="135" CornerRadius="30" Margin="0, 25, 0, 00" Padding="0" >
+            <Frame BackgroundColor="#12A3A0" HeightRequest="335" CornerRadius="30" Margin="0, 25, 0, 0" Padding="0" >
                 <StackLayout>
-                    <Label Text="Integrantes - 3/4" Margin="20, 5, 0, 0" FontSize="14" TextColor="Black" />                                                            
-                        <Grid RowDefinitions="Auto" ColumnDefinitions="*, *, *, *" >
-                        <StackLayout Margin="5" Grid.Column="0" >
-                            <Image Source="https://toppng.com/uploads/preview/icone-homem-man-icon-11553494437bgj8eja2bq.png" HeightRequest="50" />
-                            <Label Text="User 1" HorizontalOptions="Center" TextColor="Black" />
-                        </StackLayout>
-                        <StackLayout Margin="5" Grid.Column="1" >
-                            <Image Source="https://toppng.com/uploads/preview/icone-homem-man-icon-11553494437bgj8eja2bq.png" HeightRequest="50" />
-                            <Label Text="User 2" HorizontalOptions="Center" TextColor="Black" />
-                        </StackLayout>
-                        <StackLayout Margin="5" Grid.Column="2" >
-                            <Image Source="https://toppng.com/uploads/preview/icone-homem-man-icon-11553494437bgj8eja2bq.png" HeightRequest="50" />
-                            <Label Text="User 3" HorizontalOptions="Center" TextColor="Black" />
-                        </StackLayout>
-                    </Grid>                    
+                    <Label Text="{Binding GroupParticipants}" Margin="20, 5, 0, 0" FontSize="14" TextColor="Black" />
+                    <CollectionView
+                        ItemsLayout="VerticalGrid, 3"
+                        ItemsSource="{Binding GroupUsers}"
+                        SelectionMode="None" >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Margin="25, 4, 25, 4" >
+                                    <Image Source="{Binding user_image}" HeightRequest="40" />
+                                    <Label Text="{Binding nickname}" TextColor="Black" HorizontalOptions="Center" FontSize="14" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>                    
                 </StackLayout>
             </Frame>
+            <Button Text="Entrar" Margin="50, 10, 50, 0" Style="{StaticResource btn1}" Command="{Binding JoinGroupCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

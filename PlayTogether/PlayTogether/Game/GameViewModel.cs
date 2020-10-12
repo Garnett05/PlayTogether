@@ -6,10 +6,11 @@ using PlayTogether.Services.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using static PlayTogether.App;
 
 namespace PlayTogether.Game
 {
@@ -54,17 +55,28 @@ namespace PlayTogether.Game
         public async override Task InitializeAsync(object parameter)
         {
             Game = (Games)parameter;
+            if (Game != null)
+            {
+                await GetGamesData();
+            }
         }
         public GameViewModel(INetworkService networkService, INavigationService navigation)
         {
             _networkService = networkService;
             _navigation = navigation;
-            GetGamesData();
         }
         private async Task GetGamesData()
         {
             var result = await _networkService.GetAsync<List<Groups>>(Constants.GetAllGroups());
-            GroupsByGame = new ObservableCollection<Groups>(result);
+            GroupsByGame = new ObservableCollection<Groups>();
+            foreach (Groups x in result)
+            {
+                if (int.Parse(x.idGame) == Game.id)
+                {
+                    GroupsByGame.Add(x);
+                }
+            }
+            //GroupsByGame = new ObservableCollection<Groups>(result);
             //GameList = new ObservableCollection<Games>(result);
         }
         private async Task PreviousPage()
@@ -77,6 +89,7 @@ namespace PlayTogether.Game
             {
                 return;
             }
+            Globais.idGame = Game.id;
             await _navigation.PushAsync<CreateGroupViewModel>(Game);            
         }
         private async Task EnterGroup()

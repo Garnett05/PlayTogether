@@ -9,5 +9,7 @@ namespace PlayTogether.Models
         public int id { get; set; }
         public string name { get; set; }        
         public string image_url { get; set; }
+        public string numberPlayer { get; set; }
+        public string idGame { get; set; }
     }
 }

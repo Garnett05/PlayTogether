@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using static PlayTogether.App;
 
 namespace PlayTogether.User
 {
@@ -61,8 +62,14 @@ namespace PlayTogether.User
             if (User == null)
             {
                 var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
-                //User = result.Where(x => x.id == Globais.userId).FirstOrDefault();
-                User = result.Where(x => x.id == 1).FirstOrDefault(); //Alteração para deixar o login mais rápido. O correto é como está na linha de cima
+                if (Globais.userId == 0)
+                {
+                    User = result.Where(x => x.id == 1).FirstOrDefault(); //Alteração para deixar o login mais rápido. O correto é como está na linha de cima. O correto é esse if não existir
+                }
+                else
+                {
+                    User = result.Where(x => x.id == Globais.userId).FirstOrDefault();
+                }                
             }
         }
         public async Task GetGames()
