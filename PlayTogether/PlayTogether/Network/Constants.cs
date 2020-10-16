@@ -36,5 +36,9 @@ namespace PlayTogether.Network
         {
             return "http://192.168.1.63:3000/groupsxusers";
         }
+        public static string GetIcons()
+        {
+            return "http://192.168.1.63:3000/gamesIcons";
+        }
     }
 }

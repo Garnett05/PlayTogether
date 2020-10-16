@@ -1,89 +1,452 @@
-{  
-    "games": [
-        {
-            "id": "1",
-            "name": "Valorant",
-            "description": "Valorant é o novo jogo FPS da Riot Games, a mesma desenvolvedora do League of Legends (LoL). Conhecido inicialmente como “Project A”, o game é um fps 5v5 tático que mistura elementos de Counter Strike: Global Offensive (CS:GO) com Overwatch.",
-            "image_url": "https://pbs.twimg.com/profile_images/1295457884038467586/zflMaBTL.jpg"
-        },
-        {
-            "id": "2",
-            "name": "CS:GO",
-            "description": "Counter-Strike: Global Offensive (CS:GO) é um jogo online desenvolvido pela Valve Corporation e pela Hidden Path Entertainment, sendo uma sequência de Counter-Strike: Source. É o quarto título principal da franquia.",
-            "image_url": "https://steamuserimages-a.akamaihd.net/ugc/291978765909847697/560265544E443D61FC4171CEAFFF2D94ED7076CE/"
-        },
-        {
-            "id": "3",
-            "name": "Fortnite",
-            "description": "Fortnite é um jogo que une os modos Battle Royale, Salve o Mundo e um Modo Criativo. Disponível no PC, PS4, Xbox One, Nintendo Switch e, na versão Fortnite Mobile para celular Android e iPhone (iOS).",
-            "image_url": "https://i.pinimg.com/474x/6d/56/8f/6d568f8415f61464e487cbbebe1fb8c4.jpg"
-        },
-        {
-            "id": "4",
-            "name": "NBA 2K20",
-            "description": "NBA 2K transformou-se em algo muito maior que uma simulação de basquetebol. A 2K continua a redefinir o que é possível fazer em um jogo de esportes com NBA 2K20, com gráficos e jogabilidade de primeira, modos de jogo e controle e personalização de jogadores inigualáveis.",
-            "image_url": "https://cdn.2kgames.com/web/common/images/nba2k20_tile_M_2.jpg"
-        },
-        {
-            "id": "5",
-            "name": "Candy Crush",
-            "description": "Candy Crush Saga é um jogo de raciocínio para Android, iOS, Windows Phone e Facebook que tem como desafio combinar formatos de doces semelhantes com as suas respectivas cores.",
-            "image_url": "https://pbs.twimg.com/profile_images/941111642108153856/n4mI0U-8_400x400.jpg"
-        }
-    ],
-    "groups": [
-        {
-            "id": "1",
-            "name": "Valorant - Grupo 1",
-            "image_url": "https://vgraphs.com/images/agents/reyna-avatar.jpg"
-
-        },
-        {
-            "id": "2",
-            "name": "Valorant - Grupo 2",
-            "image_url": "https://vgraphs.com/images/agents/jett-avatar.jpg"
-        },
-        {
-            "id": "3",
-            "name": "Valorant - Grupo 3",
-            "image_url": "https://vgraphs.com/images/agents/phoenix-avatar.jpg"
-        },
-        {
-            "id": "4",
-            "name": "Valorant - Grupo 4",
-            "image_url": "https://i.redd.it/cwzntyd3o5c51.jpg"
-        },
-        {
-            "id": "5",
-            "name": "Valorant - Grupo 5",
-            "image_url": "https://vgraphs.com/images/agents/reyna-avatar.jpg"
-
-        },
-        {
-            "id": "6",
-            "name": "Valorant - Grupo 6",
-            "image_url": "https://vgraphs.com/images/agents/jett-avatar.jpg"
-        },
-        {
-            "id": "7",
-            "name": "Valorant - Grupo 7",
-            "image_url": "https://vgraphs.com/images/agents/phoenix-avatar.jpg"
-        },
-        {
-            "id": "8",
-            "name": "Valorant - Grupo 8",
-            "image_url": "https://i.redd.it/cwzntyd3o5c51.jpg"
-        }
-    ],
-    "users": [
-        {
-            "id": "1",
-            "name": "Joel",
-            "age": "22",
-            "nickname": "Jarbas",
-            "email": "cmota@apd.com.br",
-            "password": "Abc123",
-            "user_image": "https://lh3.googleusercontent.com/proxy/dE_5IRJkCtCnoHuWfF-Pu57qR5YqNfYh8YuZ5JVl4vvABa16Jle9byTTipaIy1ZicoZOdyOgT7DI0MzlJrQwgaJnQkTLeKirbiNTLVM7BmK6uuFZpEzkYQ8T-fKiXCKV-PMtyjoXX21PMwt7Jncb0i5c9v7e46TFvC_wdaqKnaaSg-JgviLb"
-        }
-    ]
+{
+  "games": [
+    {
+      "id": "1",
+      "name": "Valorant",
+      "description": "Valorant é o novo jogo FPS da Riot Games, a mesma desenvolvedora do League of Legends (LoL). Conhecido inicialmente como “Project A”, o game é um fps 5v5 tático que mistura elementos de Counter Strike: Global Offensive (CS:GO) com Overwatch.",
+      "imageUrl": "https://pbs.twimg.com/profile_images/1295457884038467586/zflMaBTL.jpg",
+      "minPlayers": "2",
+      "maxPlayers": "5"
+    },
+    {
+      "id": "2",
+      "name": "CS:GO",
+      "description": "Counter-Strike: Global Offensive (CS:GO) é um jogo online desenvolvido pela Valve Corporation e pela Hidden Path Entertainment, sendo uma sequência de Counter-Strike: Source. É o quarto título principal da franquia.",
+      "imageUrl": "https://steamuserimages-a.akamaihd.net/ugc/291978765909847697/560265544E443D61FC4171CEAFFF2D94ED7076CE/",
+      "minPlayers": "2",
+      "maxPlayers": "5"
+    },
+    {
+      "id": "3",
+      "name": "Fortnite",
+      "description": "Fortnite é um jogo que une os modos Battle Royale, Salve o Mundo e um Modo Criativo. Disponível no PC, PS4, Xbox One, Nintendo Switch e, na versão Fortnite Mobile para celular Android e iPhone (iOS).",
+      "imageUrl": "https://i.pinimg.com/474x/6d/56/8f/6d568f8415f61464e487cbbebe1fb8c4.jpg",
+      "minPlayers": "2",
+      "maxPlayers": "4"
+    },
+    {
+      "id": "4",
+      "name": "NBA 2K20",
+      "description": "NBA 2K transformou-se em algo muito maior que uma simulação de basquetebol. A 2K continua a redefinir o que é possível fazer em um jogo de esportes com NBA 2K20, com gráficos e jogabilidade de primeira, modos de jogo e controle e personalização de jogadores inigualáveis.",
+      "imageUrl": "https://cdn.2kgames.com/web/common/images/nba2k20_tile_M_2.jpg",
+      "minPlayers": "2",
+      "maxPlayers": "5"
+    },
+    {
+      "id": "5",
+      "name": "Among Us",
+      "description": "Among Us é um jogo eletrônico casual multijogador desenvolvido e publicado pelo estúdio de jogos estadunidense InnerSloth. Foi lançado em 15 de junho de 2018 para Android e iOS e em 17 de agosto de 2018 para Microsoft Windows.",
+      "imageUrl": "https://img.ibxk.com.br/2020/09/22/22162155836248.jpg",
+      "minPlayers": "2",
+      "maxPlayers": "10"
+    },
+    {
+      "id": "6",
+      "name": "Overwatch",
+      "description": "Overwatch é um jogo eletrônico multijogador de tiro em primeira pessoa desenvolvido e publicado pela Blizzard Entertainment. Foi lançado em 24 de maio de 2016 para Microsoft Windows, PlayStation 4 e Xbox One e em 15 de outubro de 2019 para Nintendo Switch.",
+      "imageUrl": "https://assets.change.org/photos/1/gt/bp/hagTbpVucjNcncX-400x400-noPad.jpg?1529673070",
+      "minPlayers": "2",
+      "maxPlayers": "5"
+    }
+  ],
+  "groups": [
+    {
+      "id": "1",
+      "name": "Valorant - Grupo 1",
+      "image_url": "https://vgraphs.com/images/agents/reyna-avatar.jpg",
+      "numberPlayer": "4",
+      "idGame": "1"
+    },
+    {
+      "id": "2",
+      "name": "Valorant - Grupo 2",
+      "image_url": "https://vgraphs.com/images/agents/jett-avatar.jpg",
+      "numberPlayer": "4",
+      "idGame": "1"
+    },
+    {
+      "id": "3",
+      "name": "Valorant - Grupo 3",
+      "image_url": "https://vgraphs.com/images/agents/phoenix-avatar.jpg",
+      "numberPlayer": "4",
+      "idGame": "2"
+    },
+    {
+      "id": "4",
+      "name": "Valorant - Grupo 4",
+      "image_url": "https://i.redd.it/cwzntyd3o5c51.jpg",
+      "numberPlayer": "4",
+      "idGame": "2"
+    },
+    {
+      "id": "5",
+      "name": "Valorant - Grupo 5",
+      "image_url": "https://vgraphs.com/images/agents/reyna-avatar.jpg",
+      "numberPlayer": "4",
+      "idGame": "3"
+    },
+    {
+      "id": "6",
+      "name": "Valorant - Grupo 6",
+      "image_url": "https://vgraphs.com/images/agents/jett-avatar.jpg",
+      "numberPlayer": "4",
+      "idGame": "3"
+    },
+    {
+      "id": "7",
+      "name": "Valorant - Grupo 7",
+      "image_url": "https://vgraphs.com/images/agents/phoenix-avatar.jpg",
+      "numberPlayer": "4",
+      "idGame": "4"
+    },
+    {
+      "id": "8",
+      "name": "Valorant - Grupo 8",
+      "image_url": "https://i.redd.it/cwzntyd3o5c51.jpg",
+      "numberPlayer": "4",
+      "idGame": "4"
+    },
+    {
+      "id": 9,
+      "name": "Nba 2k20 Group",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61f1f0WHh9L._SY400_.png",
+      "numberPlayer": "2",
+      "idGame": "4"
+    },
+    {
+      "id": 10,
+      "name": "ValVal Group",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61f1f0WHh9L._SY400_.png",
+      "numberPlayer": "5",
+      "idGame": "1"
+    },
+    {
+      "id": 11,
+      "name": "Among Us",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61f1f0WHh9L._SY400_.png",
+      "numberPlayer": "5",
+      "idGame": "5"
+    },
+    {
+      "id": 12,
+      "name": "Geovanne Team",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61f1f0WHh9L._SY400_.png",
+      "numberPlayer": "4",
+      "idGame": "3"
+    },
+    {
+      "id": 13,
+      "name": "Vamo jogar um Among",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61f1f0WHh9L._SY400_.png",
+      "numberPlayer": "8",
+      "idGame": "5"
+    },
+    {
+      "id": 14,
+      "name": "Among - Grupo do User04",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61f1f0WHh9L._SY400_.png",
+      "numberPlayer": "10",
+      "idGame": "5"
+    },
+    {
+      "id": 15,
+      "name": "Fortnite - Grupo",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61f1f0WHh9L._SY400_.png",
+      "numberPlayer": "7",
+      "idGame": "3"
+    },
+    {
+      "id": 16,
+      "name": "Thiaguin group",
+      "image_url": "https://images-na.ssl-images-amazon.com/images/I/61f1f0WHh9L._SY400_.png",
+      "numberPlayer": "5",
+      "idGame": "6"
+    },
+    {
+      "id": 17,
+      "name": "Grupo CS:GO - Teste ícone",
+      "image_url": "https://www.dictionary.com/e/wp-content/uploads/2018/07/CS-GO-300x300.jpg",
+      "numberPlayer": "5",
+      "idGame": "2"
+    },
+    {
+      "id": 18,
+      "name": "Celtics group",
+      "image_url": "https://upload.wikimedia.org/wikipedia/pt/f/f5/Boston_Celtics.png",
+      "numberPlayer": "5",
+      "idGame": "4"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Charlles",
+      "age": "22",
+      "nickname": "Jarbas",
+      "email": "cmota@apd.com.br",
+      "password": "Abc123",
+      "user_image": "https://www.pngarts.com/files/5/User-Avatar-Transparent.png"
+    },
+    {
+      "id": "2",
+      "name": "Jefferson",
+      "age": "25",
+      "nickname": "Jeffon",
+      "email": "jrodrigues@apd.com.br",
+      "password": "123",
+      "user_image": "https://www.pngarts.com/files/5/User-Avatar-Transparent.png"
+    },
+    {
+      "id": "3",
+      "name": "Nome Aleatório",
+      "age": "22",
+      "nickname": "RandomNicknaem",
+      "email": "carlinhos@apd.com.br",
+      "password": "123",
+      "user_image": "https://www.pngarts.com/files/5/User-Avatar-Transparent.png"
+    },
+    {
+      "id": "4",
+      "name": "Usuário 04",
+      "age": "4",
+      "nickname": "User04",
+      "email": "user04@apd.com.br",
+      "password": "123",
+      "user_image": "https://www.pngarts.com/files/5/User-Avatar-Transparent.png"
+    }
+  ],
+  "groupsxusers": [
+    {
+      "id": "1",
+      "id_user": "1",
+      "id_group": "1"
+    },
+    {
+      "id": "2",
+      "id_user": "2",
+      "id_group": "1"
+    },
+    {
+      "id": "3",
+      "id_user": "3",
+      "id_group": "1"
+    },
+    {
+      "id": "4",
+      "id_user": "1",
+      "id_group": "2"
+    },
+    {
+      "id": "5",
+      "id_user": "2",
+      "id_group": "2"
+    },
+    {
+      "id": "6",
+      "id_user": "3",
+      "id_group": "3"
+    },
+    {
+      "id": 7,
+      "id_user": "4",
+      "id_group": "2"
+    },
+    {
+      "id": 8,
+      "id_user": "4",
+      "id_group": "10"
+    },
+    {
+      "id": 9,
+      "id_user": "4",
+      "id_group": "10"
+    },
+    {
+      "id": 10,
+      "id_user": "1",
+      "id_group": "14"
+    },
+    {
+      "id": 11,
+      "id_user": "1",
+      "id_group": "16"
+    },
+    {
+      "id": 12,
+      "id_user": "1",
+      "id_group": "5"
+    },
+    {
+      "id": 13,
+      "id_user": "1",
+      "id_group": "17"
+    },
+    {
+      "id": 14,
+      "id_user": "1",
+      "id_group": "18"
+    },
+    {
+      "id": 15,
+      "id_user": "1",
+      "id_group": "7"
+    },
+    {
+      "id": 16,
+      "id_user": "1",
+      "id_group": "9"
+    }
+  ],
+  "gamesIcons": [
+    {
+      "id": 1,
+      "id_game": "1",
+      "image_url": "https://vgraphs.com/images/agents/reyna-avatar.jpg"
+    },
+    {
+      "id": 2,
+      "id_game": "1",
+      "image_url": "https://vgraphs.com/images/agents/jett-avatar.jpg"
+    },
+    {
+      "id": 3,
+      "id_game": "1",
+      "image_url": "https://vgraphs.com/images/agents/phoenix-avatar.jpg"
+    },
+    {
+      "id": 4,
+      "id_game": "1",
+      "image_url": "https://i.redd.it/cwzntyd3o5c51.jpg"
+    },
+    {
+      "id": 5,
+      "id_game": "1",
+      "image_url": "https://i0.wp.com/videogamesstats.com/wp-content/uploads/2020/04/Valorant-facts.png"
+    },
+    {
+      "id": 6,
+      "id_game": "1",
+      "image_url": "https://static.wikia.nocookie.net/valorant/images/3/3a/Closed_Beta_Promo.jpg/revision/latest/top-crop/width/300/height/300?cb=20200409115659"
+    },
+    {
+      "id": 7,
+      "id_game": "2",
+      "image_url": "https://img.ibxk.com.br/2015/07/15/15110108779589.jpg"
+    },
+    {
+      "id": 8,
+      "id_game": "2",
+      "image_url": "https://steamuserimages-a.akamaihd.net/ugc/45362930588798456/9D5B5DEC11D6DD1461F5907E0120E815AB688978/ "
+    },
+    {
+      "id": 9,
+      "id_game": "2",
+      "image_url": "https://streamingear.com/wp-content/uploads/2015/10/CS-GO-Gaming-300x300.jpg"
+    },
+    {
+      "id": 10,
+      "id_game": "2",
+      "image_url": "https://www.dictionary.com/e/wp-content/uploads/2018/07/CS-GO-300x300.jpg"
+    },
+    {
+      "id": 11,
+      "id_game": "2",
+      "image_url": "https://i.pinimg.com/originals/7f/9b/6d/7f9b6dfccd1a184ce9d7e4261e7cebe5.jpg"
+    },
+    {
+      "id": 12,
+      "id_game": "2",
+      "image_url": "https://sohogamer.net/files/urunler/counter-strike-global-offensive-csgo_1566634649.png"
+    },
+    {
+      "id": 13,
+      "id_game": "3",
+      "image_url": "https://img.ibxk.com.br/2018/04/27/27162254680256.jpg?w=300&mode=crop&scale=both"
+    },
+    {
+      "id": 14,
+      "id_game": "3",
+      "image_url": "https://blackgame.org/wp-content/uploads/2018/07/fortnite-season-5-worlds-collide-now-live-on-xbox-one.jpg"
+    },
+    {
+      "id": 15,
+      "id_game": "3",
+      "image_url": "https://i.pinimg.com/originals/0f/7a/79/0f7a7926fdcb95906144d2474472430a.png"
+    },
+    {
+      "id": 16,
+      "id_game": "3",
+      "image_url": "https://www.jornalcruzeiro.com.br/wp-content/uploads/2020/08/game-fortnite-jogo-300x300.jpg"
+    },
+    {
+      "id": 17,
+      "id_game": "3",
+      "image_url": "https://i.pinimg.com/474x/e0/d3/d1/e0d3d13c2fad050d9f5a273d738a9b61.jpg"
+    },
+    {
+      "id": 18,
+      "id_game": "3",
+      "image_url": "https://blackgame.org/wp-content/uploads/2018/09/darkness-rises-in-fortnite-season-6-on-xbox-one.jpg"
+    },
+    {
+      "id": 19,
+      "id_game": "4",
+      "image_url": "https://upload.wikimedia.org/wikipedia/pt/f/f5/Boston_Celtics.png"
+    },
+    {
+      "id": 20,
+      "id_game": "4",
+      "image_url": "https://www.dineshopplay.com/wp-content/uploads/sites/www.dineshopplay.com/images/event/3440/warriors.jpg"
+    },
+    {
+      "id": 21,
+      "id_game": "4",
+      "image_url": "https://s3-us-west-2.amazonaws.com/theathletic-team-logos/team-logo-77-300x300.png"
+    },
+    {
+      "id": 22,
+      "id_game": "4",
+      "image_url": "https://s3-us-west-2.amazonaws.com/theathletic-team-logos/team-logo-84-300x300.png"
+    },
+    {
+      "id": 23,
+      "id_game": "4",
+      "image_url": "https://s3-us-west-2.amazonaws.com/theathletic-team-logos/team-logo-72-300x300.png"
+    },
+    {
+      "id": 24,
+      "id_game": "4",
+      "image_url": "https://arenadigest.com/wp-content/uploads/2016/07/Dallas-Mavericks-300x300.png"
+    },
+    {
+      "id": 25,
+      "id_game": "5",
+      "image_url": "https://img.ibxk.com.br/2020/09/22/22162155836248.jpg"
+    },
+    {
+      "id": 26,
+      "id_game": "5",
+      "image_url": "https://www.cdkeypt.pt/wp-content/uploads/among-us-3.jpg"
+    },
+    {
+      "id": 27,
+      "id_game": "5",
+      "image_url": "https://games.lol/wp-content/uploads/2020/08/among-us-free-full-version.jpg"
+    },
+    {
+      "id": 28,
+      "id_game": "5",
+      "image_url": "https://adesivodo.com.br/wp-content/uploads/adesivo-do-among-us-300x300.jpg"
+    },
+    {
+      "id": 29,
+      "id_game": "5",
+      "image_url": "https://vignette.wikia.nocookie.net/among-us-wiki/images/1/1a/Topbanner-com.innersloth.spacemafia.jpg/revision/latest/top-crop/width/300/height/300?cb=20200516153754"
+    },
+    {
+      "id": 30,
+      "id_game": "5",
+      "image_url": "https://vignette.wikia.nocookie.net/among-us-wiki/images/b/b2/Lobby.jpg/revision/latest/top-crop/width/300/height/300?cb=20200822151352"
+    }
+  ]
 }

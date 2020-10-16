@@ -21,8 +21,17 @@ namespace PlayTogether.Group
         private INetworkService _networkService;
         private IDialogMessage _dialogMessage;
         private string _groupParticipants;
+        private bool _entrarButton;
         private ObservableCollection<Users> _groupUsers;
-        public bool userOnCurrentGroup { get; set; }
+        public bool EntrarButton
+        {
+            get { return _entrarButton; }
+            set
+            {
+                _entrarButton = value;
+                OnPropertyChanged("EntrarButton");
+            }
+        }
         public ObservableCollection<Users> GroupUsers
         {
             get { return _groupUsers; }
@@ -54,7 +63,7 @@ namespace PlayTogether.Group
 
         public ICommand PreviousPageCommand { get => new Command(async () => await PreviousPage()); }
         public ICommand JoinGroupCommand { get => new Command(async () => await JoinGroup()); }
-                
+
 
         public async override Task InitializeAsync(object parameter)
         {
@@ -63,7 +72,7 @@ namespace PlayTogether.Group
             GroupParticipants = $"Integrantes - {GroupxUsers.Count}/{Group.numberPlayer}";
         }
 
-        public GroupViewModel (INavigationService navigation, INetworkService networkService, IDialogMessage dialogMessage)
+        public GroupViewModel(INavigationService navigation, INetworkService networkService, IDialogMessage dialogMessage)
         {
             _navigation = navigation;
             _networkService = networkService;
@@ -76,23 +85,40 @@ namespace PlayTogether.Group
         }
         private async Task LoadUsersFromThisGroup()
         {
-            var result = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers());
-            GroupxUsers = new ObservableCollection<GroupsxUsers>();
-            foreach (GroupsxUsers g in result)
+            try
             {
-                if (int.Parse(g.id_group) == Group.id)
+                var result = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers());
+                GroupxUsers = new ObservableCollection<GroupsxUsers>();
+                foreach (GroupsxUsers g in result)
                 {
-                    GroupxUsers.Add(g);
+                    if (int.Parse(g.id_group) == Group.id)
+                    {
+                        GroupxUsers.Add(g);
+                    }
+                }
+                var result2 = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
+                GroupUsers = new ObservableCollection<Users>();
+                foreach (Users u in result2)
+                {
+                    if (GroupxUsers.Any(x => int.Parse(x.id_user) == u.id))
+                    {
+                        GroupUsers.Add(u);
+                    }
+                }
+
+                EntrarButton = true;
+                Users userAux = new Users();
+                userAux = GroupUsers.Where(x => x.id == Globais.userId).FirstOrDefault();
+                if (userAux != null && userAux.id == Globais.userId)
+                {
+                    EntrarButton = false;
                 }
             }
-            var result2 = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
-            GroupUsers = new ObservableCollection<Users>();
-            foreach (Users u in result2)
+            catch(Exception e)
             {
-                if (GroupxUsers.Any(x => int.Parse(x.id_user) == u.id)) {
-                    GroupUsers.Add(u);
-                }
+                await _dialogMessage.DisplayAlert("Erro", e.Message, "Ok");
             }
+
         }
         private async Task JoinGroup()
         {
@@ -101,7 +127,7 @@ namespace PlayTogether.Group
             user = result3.Where(x => x.id == Globais.userId).FirstOrDefault();
             if (GroupUsers.Any(x => x.id == user.id))
             {
-                await _dialogMessage.DisplayAlert("Aviso", "Você já está nesse grupo!", "Ok");                
+                await _dialogMessage.DisplayAlert("Aviso", "Você já está nesse grupo!", "Ok");
             }
             else if (int.Parse(Group.numberPlayer) == GroupxUsers.Count())
             {
@@ -115,7 +141,7 @@ namespace PlayTogether.Group
                     GroupsxUsers userxGroup = new GroupsxUsers() { id = result.Count + 1, id_user = Globais.userId.ToString(), id_group = Group.id.ToString() };
                     string json = JsonConvert.SerializeObject(userxGroup);
                     var result2 = await _networkService.PostAsync<GroupsxUsers>(Constants.GetAllGroupsxUsers(), json);
-                    GroupxUsers.Add(userxGroup);                    
+                    GroupxUsers.Add(userxGroup);
                     GroupUsers.Add(user);
                     GroupParticipants = $"Integrantes - {GroupxUsers.Count}/{Group.numberPlayer}";
                 }
@@ -123,7 +149,7 @@ namespace PlayTogether.Group
                 {
                     await _dialogMessage.DisplayAlert(e.GetType().Name, e.Message, "Ok");
                 }
-            }            
+            }
         }
     }
 }

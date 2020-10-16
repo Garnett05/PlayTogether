@@ -19,7 +19,7 @@
             <Frame BackgroundColor="#12A3A0" HeightRequest="100" CornerRadius="30" Margin="0, 0, 0, 10" Padding="0" >
                 <StackLayout Spacing="0" Padding="0">
                     <Label Text="Novo Grupo:" FontSize="28" TextColor="Black" HorizontalOptions="Center" />
-                    <Image Source="https://icon-library.com/images/add-image-icon-png/add-image-icon-png-18.jpg" HeightRequest="65" Margin="0, -5, 0, 0" >
+                    <Image Source="ic_add_circle.png" HeightRequest="75" Aspect="AspectFit" Margin="0, -10, 0, 0" >
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CreateGroupCommand}" />
                         </Image.GestureRecognizers>
@@ -39,7 +39,7 @@
                             <DataTemplate>
                                 <StackLayout>
                                     <Image Source="{Binding image_url}" />
-                                    <Image Source="https://icon-library.com/images/add-image-icon-png/add-image-icon-png-18.jpg" HeightRequest="35" Margin="-75, -40, 0, 0" />
+                                    
                                     <Label Text="{Binding name}" HorizontalOptions="Center" Margin="0, -5, 0, 10" TextColor="Black" />
                                 </StackLayout>
                             </DataTemplate>

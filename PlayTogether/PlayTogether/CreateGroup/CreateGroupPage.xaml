@@ -8,23 +8,43 @@
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="#2F4259">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="StartAndExpand" Margin="10, 0, 10, 0" >
-            <Image Source="https://cdn0.iconfinder.com/data/icons/action-states-vol-2-flat/48/Action___States_-_Vol._2-21-512.png" HeightRequest="50" HorizontalOptions="StartAndExpand" VerticalOptions="Start" >
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
-                </Image.GestureRecognizers>
-            </Image>
-            <StackLayout Orientation="Horizontal" Margin="0, 10, 0, 0" >
-                <Image Source="{Binding Game.imageUrl}" HeightRequest="50" />
-                <Label Text="{Binding Game.name}" FontSize="30" TextColor="White" />
+        <ScrollView>
+            <StackLayout VerticalOptions="StartAndExpand" Margin="10, 0, 10, 0" >
+                <Image Source="https://cdn0.iconfinder.com/data/icons/action-states-vol-2-flat/48/Action___States_-_Vol._2-21-512.png" HeightRequest="50" HorizontalOptions="StartAndExpand" VerticalOptions="Start" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <StackLayout Orientation="Horizontal" Margin="0, 5, 0, 0" >
+                    <Image Source="{Binding Game.imageUrl}" HeightRequest="50" />
+                    <Label Text="{Binding Game.name}" FontSize="30" TextColor="White" />
+                </StackLayout>
+                <Label Text="Nome do Grupo:" FontSize="30" TextColor="White" HorizontalOptions="Center" Margin="0, 10, 0, 0" />
+                <Entry Placeholder="Digite aqui" HeightRequest="50" FontSize="22" PlaceholderColor="#C7EEFF" TextColor="Aqua" Text="{Binding GroupName}" />
+                <Label Text="Número de integrantes:" FontSize="30" TextColor="White" HorizontalOptions="Center"  />
+                <Slider Maximum="10" Minimum="2" ThumbColor="Red" Value="{Binding SliderValue, Mode=TwoWay}" />
+                <!--<Slider Maximum="{Binding MaximumSliderValue}" Minimum="{Binding MinimumSliderValue}" ThumbColor="Red" Value="{Binding SliderValue, Mode=TwoWay}" />-->
+                <Label Text="{Binding SliderValue}" FontSize="30" TextColor="White" HorizontalOptions="Center" />
+                <Label Text="Ícone:" FontSize="30" TextColor="White" HorizontalOptions="Start" Margin="8, -15, 0, 0" />
+                <Frame HeightRequest="160" BackgroundColor="AliceBlue" CornerRadius="10" Margin="5, 0, 5, 0" >
+                    <StackLayout Padding="0" Spacing="0" >
+                        <CollectionView
+                                ItemsLayout="HorizontalGrid, 2"
+                                ItemsSource="{Binding Icons}"
+                                SelectedItem="{Binding SelectedIcon}"
+                                SelectionMode="Single" >
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Margin="25, 0, 25, 0" >
+                                        <Image Source="{Binding image_url}" HeightRequest="70" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </Frame>
+                <Button Text="Criar" Margin="50, 15, 50, 0" Style="{StaticResource btn1}" Command="{Binding CreateGroupCommand}" />
             </StackLayout>
-            <Label Text="Nome do Grupo:" FontSize="30" TextColor="White" HorizontalOptions="Center" Margin="0, 80, 0, 0" />
-            <Entry Placeholder="Digite aqui" HeightRequest="50" FontSize="22" PlaceholderColor="#C7EEFF" TextColor="Aqua" Text="{Binding GroupName}" />
-            <Label Text="Número de integrantes:" FontSize="30" TextColor="White" HorizontalOptions="Center"  />
-            <Slider Maximum="10" Minimum="2" ThumbColor="Red" Value="{Binding SliderValue, Mode=TwoWay}" />
-            <!--<Slider Maximum="{Binding MaximumSliderValue}" Minimum="{Binding MinimumSliderValue}" ThumbColor="Red" Value="{Binding SliderValue, Mode=TwoWay}" />-->
-            <Label Text="{Binding SliderValue}" FontSize="30" TextColor="White" HorizontalOptions="Center" />
-            <Button Text="Criar" Margin="50, 40, 50, 0" Style="{StaticResource btn1}" Command="{Binding CreateGroupCommand}" />
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

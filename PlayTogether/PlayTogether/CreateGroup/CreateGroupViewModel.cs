@@ -6,6 +6,7 @@ using PlayTogether.Services.DialogMessage;
 using PlayTogether.Services.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,6 +20,8 @@ namespace PlayTogether.CreateGroup
         private INavigationService _navigation;
         private INetworkService _networkService;
         private IDialogMessage _dialogMessage;
+        private GamesIcons _selectedIcon;
+        private ObservableCollection<GamesIcons> _icons;
         private double _sliderValue;
         private string _groupName;
         public double MaximumSliderValue { get; set; }
@@ -42,6 +45,24 @@ namespace PlayTogether.CreateGroup
                 OnPropertyChanged("GroupName");
             }
         }
+        public GamesIcons SelectedIcon
+        {
+            get { return _selectedIcon; }
+            set
+            {
+                _selectedIcon = value;
+                OnPropertyChanged("SelectedIcon");
+            }
+        }
+        public ObservableCollection<GamesIcons> Icons
+        {
+            get { return _icons; }
+            set
+            {
+                _icons = value;
+                OnPropertyChanged("Icons");
+            }
+        }
 
         public ICommand PreviousPageCommand { get => new Command(async () => await PreviousPage()); }
         public ICommand CreateGroupCommand { get => new Command(async () => await CreateGroup()); }        
@@ -59,7 +80,8 @@ namespace PlayTogether.CreateGroup
         public async override Task InitializeAsync(object parameter)
         {
             Game = (Games)parameter;
-            SliderValue = 2;            
+            SliderValue = 2;
+            await LoadIcons();
         }
         public CreateGroupViewModel(INavigationService navigation, INetworkService networkService, IDialogMessage dialogMessage)
         {
@@ -80,21 +102,29 @@ namespace PlayTogether.CreateGroup
                 {
                     await _dialogMessage.DisplayAlert("Aviso", "O nome do grupo obrigatoriamente precisa ser preenchido.", "Ok");
                 }
+                else if (SelectedIcon == null)
+                {
+                    await _dialogMessage.DisplayAlert("Aviso", "Selecione um ícone para prosseguir com a criação do grupo.", "Ok");
+                }
                 else
                 {
                     Groups group = new Groups()
                     {
                         id = numberOfGroups.Count + 1,
                         name = GroupName,
-                        image_url = "https://images-na.ssl-images-amazon.com/images/I/61f1f0WHh9L._SY400_.png",
+                        image_url = SelectedIcon.image_url,
                         numberPlayer = SliderValue.ToString(),
                         idGame = Game.id.ToString()
                     };
 
                     string json = JsonConvert.SerializeObject(group);
                     var result = await _networkService.PostAsync<Groups>(Constants.GetAllGroups(), json);
+                    var result2 = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers()); //Quando estiver usando a API, remover este trecho e o de baixo que está informando o id do registro, pois a API usará o autoIncrement da tabela                
+                    GroupsxUsers userxGroup = new GroupsxUsers() { id = result2.Count + 1, id_user = Globais.userId.ToString(), id_group = group.id.ToString() };
+                    string json2 = JsonConvert.SerializeObject(userxGroup);
+                    var result3 = await _networkService.PostAsync<GroupsxUsers>(Constants.GetAllGroupsxUsers(), json2);
                     if (result != null)
-                    {
+                    {                        
                         await _navigation.PushAsync<GroupViewModel>(group);
                     }
                 }
@@ -104,12 +134,17 @@ namespace PlayTogether.CreateGroup
                 await _dialogMessage.DisplayAlert(e.GetType().Name, e.Message, "Ok");
             }
         }
+        private async Task LoadIcons()
+        {
+            var result = await _networkService.GetAsync<List<GamesIcons>>(Constants.GetIcons());
+            Icons = new ObservableCollection<GamesIcons>(result.Where(x => int.Parse(x.id_game) == Game.id));
+        }
         /*private async Task DefineMaxAndMin()
         {
             var result = await _networkService.GetAsync<List<Games>>(Constants.GetAllGames());
             Games gm = result.Where(x => x.id == Globais.idGame).FirstOrDefault();
             MinAndMax.max = double.Parse(gm.maxPlayers);
             MinAndMax.min = double.Parse(gm.minPlayers);
-        }*/        
+        }*/
     }
 }

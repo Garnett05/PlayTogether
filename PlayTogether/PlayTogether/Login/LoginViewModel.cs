@@ -13,6 +13,8 @@ using static PlayTogether.App;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Autofac;
+using System.Reflection;
 
 namespace PlayTogether.Login
 {
@@ -56,7 +58,7 @@ namespace PlayTogether.Login
         }
 
         private async void PushHome()
-        {
+        {            
             try
             {
                 var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
@@ -69,12 +71,12 @@ namespace PlayTogether.Login
                 else if (User.password != Password)
                 {
                     await _dialogMessage.DisplayAlert("Senha incorreta", "A senha digitada está incorreta. Tente novamente.", "Ok");
-                }
+                }                
                 else
                 {
                     Globais.userId = User.id;
-                    await _navigation.PushAsync<TabbedHomeViewModel>(User);
                     result.Clear();
+                    Login();
                 }
             }
             catch(WebException)
@@ -89,6 +91,24 @@ namespace PlayTogether.Login
         private async Task CreateAccount()
         {
             await _dialogMessage.DisplayAlert("Aviso", "Este recurso está desabilitado no momento. Entre em contato com os desenvolvedores para que a sua conta seja criada.", "Ok");
+        }
+        private void Login()
+        {
+            var builder = new ContainerBuilder();
+            var dataAccess = Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(dataAccess)
+                .AsImplementedInterfaces()
+                .AsSelf();
+            NavigationPage navigationPage = null;
+            Func<INavigation> navigationFunc = () =>
+            {
+                return navigationPage.Navigation;
+            };
+            builder.RegisterType<NavigationService>().As<INavigationService>()
+                .WithParameter("navigation", navigationFunc);
+            var container = builder.Build();
+            navigationPage = new NavigationPage(container.Resolve<Home.HomePage>());            
+            Application.Current.MainPage = navigationPage;
         }
     }
 }

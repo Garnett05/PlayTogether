@@ -71,14 +71,13 @@ namespace PlayTogether.Home
         public ICommand GameChangedCommand { get => new Command(async () => await GoToGameDetails()); }
         //public ICommand DeleteCommand { get => new Command(() => DeleteGame()); }
         //public ICommand CreateCommand { get => new Command(async () => await CreateGame()); }
-
-
+        
         public HomeViewModel(INetworkService networkService, INavigationService navigation)
         {
             _networkService = networkService;
             _navigation = navigation;
-            //_dialogMessage = dialogMessage;
             GetGamesData();
+            //_dialogMessage = dialogMessage;
         }
         private async Task GetGamesData()
         {

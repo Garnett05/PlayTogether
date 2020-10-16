@@ -36,7 +36,7 @@
                     </CollectionView>                    
                 </StackLayout>
             </Frame>
-            <Button Text="Entrar" Margin="50, 10, 50, 0" Style="{StaticResource btn1}" Command="{Binding JoinGroupCommand}" />
+            <Button Text="Entrar" Margin="50, 10, 50, 0" Style="{StaticResource btn1}" Command="{Binding JoinGroupCommand}" IsVisible="{Binding EntrarButton}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
