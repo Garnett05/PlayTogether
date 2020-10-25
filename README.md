@@ -1,4 +1,4 @@
-# PlayTogether
+# Flipper App
 
 Parcial do projeto:
 

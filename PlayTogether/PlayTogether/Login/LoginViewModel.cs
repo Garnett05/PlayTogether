@@ -65,8 +65,8 @@ namespace PlayTogether.Login
                 User = result.Where(x => x.email == Email).FirstOrDefault();
                 if (User == null)
                 {
-                    await _navigation.PushAsync<TabbedHomeViewModel>();
-                    //await _dialogMessage.DisplayAlert("Não encontrado", "Não existe um usuário com este e-mail.", "Ok");
+                    //await _navigation.PushAsync<TabbedHomeViewModel>();
+                    await _dialogMessage.DisplayAlert("Não encontrado", "Não existe um usuário com este e-mail.", "Ok");
                 }
                 else if (User.password != Password)
                 {
@@ -107,7 +107,7 @@ namespace PlayTogether.Login
             builder.RegisterType<NavigationService>().As<INavigationService>()
                 .WithParameter("navigation", navigationFunc);
             var container = builder.Build();
-            navigationPage = new NavigationPage(container.Resolve<Home.HomePage>());            
+            navigationPage = new NavigationPage(container.Resolve<TabbedHome.TabbedHomePage>());            
             Application.Current.MainPage = navigationPage;
         }
     }

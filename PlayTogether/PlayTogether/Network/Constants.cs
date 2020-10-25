@@ -20,6 +20,10 @@ namespace PlayTogether.Network
         {            
             return "http://192.168.1.63:3000/groups";
         }
+        public static string DeleteGroup(int id)
+        {
+            return $"http://192.168.1.63:3000/groups/{id}";
+        }
         public static string GetAllUsers()
         {
             return "http://192.168.1.63:3000/users";
@@ -35,6 +39,10 @@ namespace PlayTogether.Network
         public static string GetAllGroupsxUsers()
         {
             return "http://192.168.1.63:3000/groupsxusers";
+        }
+        public static string DeleteGroupxUser(int id)
+        {
+            return $"http://192.168.1.63:3000/groupsxusers/{id}";
         }
         public static string GetIcons()
         {

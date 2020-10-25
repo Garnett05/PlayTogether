@@ -96,8 +96,7 @@ namespace PlayTogether.CreateGroup
         private async Task CreateGroup()
         {
             try
-            {
-                var numberOfGroups = await _networkService.GetAsync<List<Groups>>(Constants.GetAllGroups());
+            {                
                 if (GroupName == null || GroupName.Trim().Length == 0)
                 {
                     await _dialogMessage.DisplayAlert("Aviso", "O nome do grupo obrigatoriamente precisa ser preenchido.", "Ok");
@@ -108,19 +107,25 @@ namespace PlayTogether.CreateGroup
                 }
                 else
                 {
+                    var numberOfGroups = await _networkService.GetAsync<List<Groups>>(Constants.GetAllGroups());//Quando estiver usando a API,
+                    Groups maxIdGroup = new Groups();                                                           //remover este trecho 
+                    maxIdGroup = numberOfGroups.OrderByDescending(x => x.id).FirstOrDefault();                  //pois a API usará o autoIncrement da tabela
                     Groups group = new Groups()
                     {
-                        id = numberOfGroups.Count + 1,
+                        id = maxIdGroup.id+1,
                         name = GroupName,
                         image_url = SelectedIcon.image_url,
                         numberPlayer = SliderValue.ToString(),
-                        idGame = Game.id.ToString()
+                        idGame = Game.id.ToString(),
+                        idUserGroupLeader = Globais.userId.ToString()
                     };
 
                     string json = JsonConvert.SerializeObject(group);
                     var result = await _networkService.PostAsync<Groups>(Constants.GetAllGroups(), json);
-                    var result2 = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers()); //Quando estiver usando a API, remover este trecho e o de baixo que está informando o id do registro, pois a API usará o autoIncrement da tabela                
-                    GroupsxUsers userxGroup = new GroupsxUsers() { id = result2.Count + 1, id_user = Globais.userId.ToString(), id_group = group.id.ToString() };
+                    var result2 = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers()); //Quando estiver usando a API, 
+                    GroupsxUsers maxIdGroupxUser = new GroupsxUsers();                                                //remover este trecho 
+                    maxIdGroupxUser = result2.OrderByDescending(x => x.id).FirstOrDefault();                          //pois a API usará o autoIncrement da tabela
+                    GroupsxUsers userxGroup = new GroupsxUsers() { id = maxIdGroupxUser.id + 1, id_user = Globais.userId.ToString(), id_group = group.id.ToString() }; //Controlando o Max Id do GroupsxUsers por aqui
                     string json2 = JsonConvert.SerializeObject(userxGroup);
                     var result3 = await _networkService.PostAsync<GroupsxUsers>(Constants.GetAllGroupsxUsers(), json2);
                     if (result != null)
