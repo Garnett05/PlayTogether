@@ -4,10 +4,12 @@ using PlayTogether.Game;
 using PlayTogether.Group;
 using PlayTogether.Home;
 using PlayTogether.TabbedHome;
+using PlayTogether.CreateUser;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using PlayTogether.GroupChat;
 
 namespace PlayTogether.Services.Navigation
 {
@@ -29,6 +31,8 @@ namespace PlayTogether.Services.Navigation
             { typeof(CreateGroupViewModel), typeof(CreateGroupPage)},
             { typeof(GroupViewModel), typeof(GroupPage)},
             { typeof(TabbedHomeViewModel), typeof(TabbedHomePage)},
+            {typeof(CreateUserViewModel), typeof(CreateUserPage) },
+            {typeof(GroupChatViewModel), typeof(GroupChatPage) }
         };
 
         public NavigationService(Func<INavigation> navigation, IComponentContext container)

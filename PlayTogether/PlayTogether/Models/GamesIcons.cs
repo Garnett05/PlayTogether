@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PlayTogether.Models
+﻿namespace PlayTogether.Models
 {
     public class GamesIcons
     {

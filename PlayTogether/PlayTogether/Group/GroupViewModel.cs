@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using PlayTogether.Services.DialogMessage;
 using Autofac;
 using System.Reflection;
+using PlayTogether.GroupChat;
 
 namespace PlayTogether.Group
 {
@@ -25,7 +26,17 @@ namespace PlayTogether.Group
         private ObservableCollection<Users> _groupUsers;
         private string _groupParticipants;
         private bool _entrarButton;
-        private bool _deleteButton;        
+        private bool _deleteButton;
+        private bool _messagesButton;
+        public bool MessagesButton
+        {
+            get { return _messagesButton; }
+            set
+            {
+                _messagesButton = value;
+                OnPropertyChanged("MessagesButton");
+            }
+        }
         public bool DeleteButton
         {
             get { return _deleteButton; }
@@ -76,8 +87,8 @@ namespace PlayTogether.Group
         public ICommand PreviousPageCommand { get => new Command(async () => await PreviousPage()); }
         public ICommand JoinGroupCommand { get => new Command(async () => await JoinGroup()); }
         public ICommand DeleteGroupCommand { get => new Command(async () => await DeleteGroup()); }
-
-
+        public ICommand NavigateChatPageCommand { get => new Command(async () => await NavigateChatPage()); }        
+                
         public async override Task InitializeAsync(object parameter)
         {
             Group = (Groups)parameter;
@@ -121,11 +132,13 @@ namespace PlayTogether.Group
 
                 EntrarButton = true;
                 DeleteButton = false;
+                MessagesButton = false;
                 Users userAux = new Users();
                 userAux = GroupUsers.Where(x => x.id == Globais.userId).FirstOrDefault();
                 if (userAux != null && userAux.id == Globais.userId)
                 {
                     EntrarButton = false;
+                    MessagesButton = true;
                 }
 
                 if (int.Parse(Group.idUserGroupLeader) == Globais.userId)
@@ -157,8 +170,8 @@ namespace PlayTogether.Group
                 try
                 {
                     var result = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers()); //Quando estiver usando a API, 
-                    GroupsxUsers maxId = new GroupsxUsers();                                                        //remover este trecho 
-                    maxId = result.OrderByDescending(x => x.id).FirstOrDefault();                                   //pois a API usará o autoIncrement da tabela
+                    GroupsxUsers maxId = new GroupsxUsers();                                                         //remover este trecho 
+                    maxId = result.OrderByDescending(x => x.id).FirstOrDefault();                                    //pois a API usará o autoIncrement da tabela
                     GroupsxUsers userxGroup = new GroupsxUsers() { id = maxId.id + 1, id_user = Globais.userId.ToString(), id_group = Group.id.ToString() };
                     string json = JsonConvert.SerializeObject(userxGroup);
                     var result2 = await _networkService.PostAsync<GroupsxUsers>(Constants.GetAllGroupsxUsers(), json);
@@ -166,6 +179,7 @@ namespace PlayTogether.Group
                     GroupUsers.Add(user);
                     GroupParticipants = $"Integrantes - {GroupxUsers.Count}/{Group.numberPlayer}";
                     EntrarButton = false;
+                    MessagesButton = true;
                 }
                 catch (Exception e)
                 {
@@ -210,5 +224,10 @@ namespace PlayTogether.Group
             navigationPage = new NavigationPage(container.Resolve<TabbedHome.TabbedHomePage>());
             Application.Current.MainPage = navigationPage;
         }
+        private async Task NavigateChatPage()
+        {
+            await _navigation.PushAsync<GroupChatViewModel>(Group);
+        }
+
     }
 }

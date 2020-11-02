@@ -30,7 +30,7 @@ namespace PlayTogether
                 .WithParameter("navigation", navigationFunc);
 
             var container = builder.Build();
-            navigationPage = new NavigationPage(container.Resolve<Login.LoginPage>());
+            navigationPage = new NavigationPage(container.Resolve<Login.LoginPage>());            
             MainPage = navigationPage;
         }
         public static class Globais

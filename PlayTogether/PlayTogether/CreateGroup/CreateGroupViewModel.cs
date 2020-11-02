@@ -65,7 +65,7 @@ namespace PlayTogether.CreateGroup
         }
 
         public ICommand PreviousPageCommand { get => new Command(async () => await PreviousPage()); }
-        public ICommand CreateGroupCommand { get => new Command(async () => await CreateGroup()); }        
+        public ICommand CreateGroupCommand { get => new Command(async () => await CreateGroup()); }
         private Games _game;
 
         public Games Game

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PlayTogether.GroupChat"             
+             mc:Ignorable="d"             
+             x:Class="PlayTogether.GroupChat.GroupChatPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#2F4259">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ChatTemplateSelector x:Key="MessageTemplateSelector" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+        <Image Source="ic_arrow_back.png" HeightRequest="50" HorizontalOptions="StartAndExpand" >
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
+            </Image.GestureRecognizers>
+        </Image>
+        <StackLayout Orientation="Horizontal" Margin="0, 10, 0, 0" >
+            <Image Source="{Binding Group.image_url}" HeightRequest="70" />
+            <Label Text="{Binding Group.name}" FontSize="30" TextColor="White" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Margin="0, 0, 15, 0" />            
+        </StackLayout>
+        <Grid RowSpacing="0" 
+                  ColumnSpacing="0"
+                  RowDefinitions="*, 1, Auto"
+                  ColumnDefinitions="*, 60">                
+                <ListView Grid.Row="0" Grid.ColumnSpan="2" 
+                 ItemTemplate="{StaticResource MessageTemplateSelector}" 
+                 ItemsSource="{Binding Messages}" 
+                 Margin="0" 
+                 HasUnevenRows="True" 
+                 VerticalOptions="FillAndExpand" 
+                 SeparatorColor="Transparent" >
+                </ListView>
+            <BoxView HorizontalOptions="FillAndExpand"
+                 HeightRequest="1"
+                 BackgroundColor="LightGray"
+                 Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Entry Placeholder="Digite sua mensagem" TextColor="White" PlaceholderColor="White" Keyboard="Chat" Text="{Binding MyMessage}" Margin="0, 0, 10, 0" Grid.Row="2" Grid.Column="0" />
+            <Label Text="Enviar" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="2" Grid.Column="1" TextColor="White" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SendMessageCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

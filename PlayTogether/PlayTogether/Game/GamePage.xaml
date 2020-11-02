@@ -9,7 +9,7 @@
              BackgroundColor="#2F4259" >
     <ContentPage.Content>
         <StackLayout>
-            <Image Source="https://cdn0.iconfinder.com/data/icons/action-states-vol-2-flat/48/Action___States_-_Vol._2-21-512.png" HeightRequest="50" HorizontalOptions="StartAndExpand" >
+            <Image Source="ic_arrow_back.png" HeightRequest="50" HorizontalOptions="StartAndExpand" >
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
                 </Image.GestureRecognizers>

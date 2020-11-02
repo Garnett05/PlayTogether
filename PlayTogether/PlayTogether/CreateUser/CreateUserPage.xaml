@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PlayTogether.CreateUser.CreateUserPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#2F4259">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="0">
+                <Label Text="Flipper" FontSize="30" TextColor="White" HorizontalOptions="Center" VerticalOptions="StartAndExpand" Margin="0, 0, 15, 15" />
+                <Label Text="Aqui você irá prosseguir com o seu cadastro. Precisamos de algumas informações básicas suas para poder prosseguir com a criação da sua conta para que você possa iniciar a sua experiência conosco!" Margin="10, 10, 10, 30" HorizontalOptions="Center" Style="{StaticResource lblWhite}" FontSize="12" />
+                <Label Text="Nome:" Style="{StaticResource lblCreateUser}" />
+                <Entry Placeholder="Digite seu nome" Style="{StaticResource entryCreateUser}" Text="{Binding Name}" />
+                <Label Text="Idade:" Style="{StaticResource lblCreateUser}" />
+                <Entry Placeholder="Digite sua idade" Style="{StaticResource entryCreateUser}" Keyboard="Numeric" Text="{Binding Age}" />
+                <Label Text="E-mail:" Style="{StaticResource lblCreateUser}" />
+                <Entry Placeholder="Digite seu e-mail" Style="{StaticResource entryCreateUser}" Text="{Binding Email}" />
+                <Label Text="Nickname:" Style="{StaticResource lblCreateUser}" />
+                <Entry Placeholder="Digite seu nickname" Style="{StaticResource entryCreateUser}" Text="{Binding Nickname}" />
+                <Label Text="Senha:" Style="{StaticResource lblCreateUser}" />
+                <Entry Placeholder="Digite sua senha" Style="{StaticResource entryCreateUser}" IsPassword="True" Text="{Binding Password}" />
+                <Label Text="Confirme sua Senha:" Style="{StaticResource lblCreateUser}" />
+                <Entry Placeholder="Confirme sua senha" Style="{StaticResource entryCreateUser}" IsPassword="True" Text="{Binding PasswordConfirm}" />
+                <Label Text="Escolha seu avatar:" Style="{StaticResource lblCreateUser}" />
+                <Frame HeightRequest="360" BackgroundColor="AliceBlue" CornerRadius="10" Margin="5, 20, 5, 15" >
+                    <StackLayout Padding="0" Spacing="0" >
+                        <CollectionView
+                                ItemsLayout="VerticalGrid, 3"
+                                ItemsSource="{Binding Icons}"
+                                SelectedItem="{Binding SelectedIcon}"
+                                SelectionMode="Single" >
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Margin="25, 10, 25, 10" >
+                                        <Image Source="{Binding image_url}" HeightRequest="70" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </Frame>
+                <Button Text="Criar" Margin="50, 15, 50, 15" Style="{StaticResource btn1}" Command="{Binding CreateUserCommand}" />
+            </StackLayout>            
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

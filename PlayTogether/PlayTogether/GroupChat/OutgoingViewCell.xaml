@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="PlayTogether.GroupChat.OutgoingViewCell">
+    <Frame BackgroundColor="Gray"
+           CornerRadius="8"
+           Padding="10"
+            HasShadow="false"
+            Margin="80,10,10,10">
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding message}" TextColor="White"/>
+            <Label Text="Você" FontSize="8" HorizontalOptions="EndAndExpand" VerticalOptions="End" Margin="3, 0, 0, 0" MinimumWidthRequest="20" />
+            <!--<Label Text="08:00" FontSize="10" HorizontalOptions="End" VerticalOptions="End" />-->
+        </StackLayout>
+    </Frame>
+</ViewCell>

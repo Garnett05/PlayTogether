@@ -48,5 +48,13 @@ namespace PlayTogether.Network
         {
             return "http://192.168.1.63:3000/gamesIcons";
         }
+        public static string GetUsersIcons()
+        {
+            return "http://192.168.1.63:3000/usersIcons";
+        }
+        public static string GetMessages()
+        {
+            return "http://192.168.1.63:3000/messages";
+        }
     }
 }

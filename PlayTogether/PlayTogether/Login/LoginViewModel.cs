@@ -15,6 +15,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Autofac;
 using System.Reflection;
+using PlayTogether.CreateUser;
 
 namespace PlayTogether.Login
 {
@@ -89,8 +90,8 @@ namespace PlayTogether.Login
             await _dialogMessage.DisplayAlert("Aviso", "Este recurso está desabilitado no momento. Entre em contato com os desenvolvedores para que seu acesso seja ajustado.", "Ok");
         }
         private async Task CreateAccount()
-        {
-            await _dialogMessage.DisplayAlert("Aviso", "Este recurso está desabilitado no momento. Entre em contato com os desenvolvedores para que a sua conta seja criada.", "Ok");
+        {            
+            await _navigation.PushAsync<CreateUserViewModel>();
         }
         private void Login()
         {

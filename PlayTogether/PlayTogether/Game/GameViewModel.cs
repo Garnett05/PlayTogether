@@ -90,7 +90,7 @@ namespace PlayTogether.Game
                 return;
             }
             Globais.idGame = Game.id;
-            await _navigation.PushAsync<CreateGroupViewModel>(Game);            
+            await _navigation.PushAsync<CreateGroupViewModel>(Game);
         }
         private async Task EnterGroup()
         {
