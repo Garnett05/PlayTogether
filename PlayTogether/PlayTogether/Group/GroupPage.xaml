@@ -9,7 +9,7 @@
              BackgroundColor="#2F4259" >
     <ContentPage.Content>
         <StackLayout VerticalOptions="StartAndExpand" Margin="10, 0, 10, 0" >
-            <Image Source="ic_arrow_back.png" HeightRequest="50" HorizontalOptions="StartAndExpand" >
+            <Image Source="ic_arrow_back.png" HeightRequest="50" HorizontalOptions="StartAndExpand" Margin="-10, 0, 0, 0" >
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
                 </Image.GestureRecognizers>
@@ -28,8 +28,10 @@
                     <Label Text="{Binding GroupParticipants}" Margin="20, 5, 0, 0" FontSize="14" TextColor="Black" />
                     <CollectionView
                         ItemsLayout="VerticalGrid, 3"
-                        ItemsSource="{Binding GroupUsers}"
-                        SelectionMode="None" >
+                        ItemsSource="{Binding GroupUsers}"                                                
+                        SelectedItem="{Binding SelectedUser}"                        
+                        SelectionChangedCommand="{Binding ShowPlayerInfoCommand}"
+                        SelectionMode="Single" >
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Margin="25, 4, 25, 4" >

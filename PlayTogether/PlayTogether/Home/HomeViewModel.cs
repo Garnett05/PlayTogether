@@ -11,6 +11,9 @@ using Xamarin.Forms;
 using System;
 using PlayTogether.Game;
 using Newtonsoft.Json;
+using Autofac;
+using System.Reflection;
+using static PlayTogether.App;
 
 namespace PlayTogether.Home
 {
@@ -18,7 +21,7 @@ namespace PlayTogether.Home
     {
         private INetworkService _networkService;
         private INavigationService _navigation;
-        //private IDialogMessage _dialogMessage; 
+        private IDialogMessage _dialogMessage;
         private Games _selectedGame;
         private int _selectedGameId;
         private ObservableCollection<Games> GameData { get; set; }
@@ -69,13 +72,17 @@ namespace PlayTogether.Home
 
         public ICommand PerformSearchCommand { get => new Command(() => PerformSearch()); }
         public ICommand GameChangedCommand { get => new Command(async () => await GoToGameDetails()); }
+        public ICommand PerformLogoutCommand { get => new Command(async () => await PerformLogout()); }
+        
         //public ICommand DeleteCommand { get => new Command(() => DeleteGame()); }
         //public ICommand CreateCommand { get => new Command(async () => await CreateGame()); }
-        
-        public HomeViewModel(INetworkService networkService, INavigationService navigation)
+        //
+
+        public HomeViewModel(INetworkService networkService, INavigationService navigation, IDialogMessage dialogMessage)
         {
             _networkService = networkService;
             _navigation = navigation;
+            _dialogMessage = dialogMessage;
             GetGamesData();
             //_dialogMessage = dialogMessage;
         }
@@ -106,6 +113,31 @@ namespace PlayTogether.Home
             }
             await _navigation.PushAsync<GameViewModel>(SelectedGame);
             SelectedGame = null;
+        }
+        private async Task PerformLogout()
+        {
+            bool awnser = await _dialogMessage.DisplayAlertOptions("Logout", "Você está realizando o logout. Deseja prosseguir com essa ação?", "Não", "Sim");            
+            if (awnser == true)
+            {
+                return;
+            }
+            Globais.idGame = 0;
+            Globais.userId = 0;
+            var builder = new ContainerBuilder();
+            var dataAccess = Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(dataAccess)
+                .AsImplementedInterfaces()
+                .AsSelf();
+            NavigationPage navigationPage = null;
+            Func<INavigation> navigationFunc = () =>
+            {
+                return navigationPage.Navigation;
+            };
+            builder.RegisterType<NavigationService>().As<INavigationService>()
+                .WithParameter("navigation", navigationFunc);
+            var container = builder.Build();
+            navigationPage = new NavigationPage(container.Resolve<Login.LoginPage>());
+            Application.Current.MainPage = navigationPage;
         }
         /*private async void DeleteGame()
         {

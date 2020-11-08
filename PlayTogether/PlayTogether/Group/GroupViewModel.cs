@@ -14,6 +14,7 @@ using PlayTogether.Services.DialogMessage;
 using Autofac;
 using System.Reflection;
 using PlayTogether.GroupChat;
+using Rg.Plugins.Popup.Services;
 
 namespace PlayTogether.Group
 {
@@ -24,6 +25,7 @@ namespace PlayTogether.Group
         private INetworkService _networkService;
         private IDialogMessage _dialogMessage;
         private ObservableCollection<Users> _groupUsers;
+        private Users _selectedUser;
         private string _groupParticipants;
         private bool _entrarButton;
         private bool _deleteButton;
@@ -83,12 +85,22 @@ namespace PlayTogether.Group
                 OnPropertyChanged("GroupParticipants");
             }
         }
+        public Users SelectedUser
+        {
+            get { return _selectedUser; }
+            set
+            {
+                _selectedUser = value;
+                OnPropertyChanged("SelectedUser");
+            }
+        }
 
         public ICommand PreviousPageCommand { get => new Command(async () => await PreviousPage()); }
         public ICommand JoinGroupCommand { get => new Command(async () => await JoinGroup()); }
         public ICommand DeleteGroupCommand { get => new Command(async () => await DeleteGroup()); }
-        public ICommand NavigateChatPageCommand { get => new Command(async () => await NavigateChatPage()); }        
-                
+        public ICommand NavigateChatPageCommand { get => new Command(async () => await NavigateChatPage()); }
+        public ICommand ShowPlayerInfoCommand { get => new Command(async () => await NavigatePlayerInfoPage()); }        
+
         public async override Task InitializeAsync(object parameter)
         {
             Group = (Groups)parameter;
@@ -227,6 +239,22 @@ namespace PlayTogether.Group
         private async Task NavigateChatPage()
         {
             await _navigation.PushAsync<GroupChatViewModel>(Group);
+        }
+        private async Task NavigatePlayerInfoPage()
+        {
+            if (SelectedUser == null)
+            {
+                return;
+            }
+            int idSelectedUser = SelectedUser.id;
+            var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
+            Users user = new Users();
+            user = result.Where(x => x.id == idSelectedUser).FirstOrDefault();
+            //await _navigation.PushAsync<GroupPlayerInfoViewModel>(user);
+            //var viewModel = new GroupPlayerInfoViewModel(user);
+            var popupPage = new GroupPlayerInfoPage(user);
+            await PopupNavigation.Instance.PushAsync(popupPage);
+            SelectedUser = null;
         }
 
     }
