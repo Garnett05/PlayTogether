@@ -9,21 +9,21 @@
              IconImageSource="ic_people.png" >
     <ContentPage.Content>
         <StackLayout >
-            <Label Text="Flipper" FontSize="30" TextColor="White" HorizontalOptions="Center" VerticalOptions="Start" Margin="0, 0, 15, 0" />
+            <Label Style="{StaticResource lblFlipper}" VerticalOptions="Start" Margin="0, 0, 15, 0" />
             <StackLayout>
-                <Frame BackgroundColor="#12A3A0" HeightRequest="700" CornerRadius="30" Margin="0, 50, 0, -40" Padding="0" >
+                <Frame Style="{StaticResource frame}" HeightRequest="700" CornerRadius="30" Margin="0, 50, 0, -40" Padding="0" >
                     <StackLayout Spacing="0" Padding="0">
                         <StackLayout HeightRequest="220">
                             <StackLayout Orientation="Horizontal">
                                 <StackLayout Margin="10, 10, 0, 0" >
-                                    <Image Source="{Binding User.user_image}" HeightRequest="85" />
+                                    <Image Source="{Binding User.imageUrl}" HeightRequest="85" />
                                     <Label Text="Alterar avatar" HorizontalOptions="Center" TextColor="Black" >
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding UpdateUserAvatarCommand}" />
                                         </Label.GestureRecognizers>
                                     </Label>
                                 </StackLayout>
-                                <StackLayout Margin="0, 20, 0, 0">
+                                <StackLayout Margin="5, 20, 0, 0">
                                     <Label Text="{Binding User.name}" TextColor="Black" FontSize="24" />
                                     <Label Text="{Binding User.nickname}" TextColor="Black" FontSize="12" FontAttributes="Bold" Margin="1" />
                                     <Label TextColor="Black" FontSize="12" FontAttributes="Bold" Margin="1" >
@@ -37,16 +37,7 @@
                                     
                                 </StackLayout>
                             </StackLayout >
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0, 10, 0, 0" >
-                                <StackLayout Margin="0, 0, 30, 0" >
-                                    <Label Text="Seguidores" FontSize="16" TextColor="Black" />
-                                    <Label Text="51" FontSize="16" TextColor="Black" HorizontalOptions="Center" />
-                                </StackLayout>
-                                <StackLayout >
-                                    <Label Text="Seguindo" FontSize="16" TextColor="Black" />
-                                    <Label Text="90" FontSize="16" TextColor="Black" HorizontalOptions="Center" />
-                                </StackLayout>
-                            </StackLayout>
+                            
                         </StackLayout>
                         <Frame HeightRequest="210" BackgroundColor="AliceBlue" CornerRadius="10" Margin="5, 0, 5, 0" >
                             <StackLayout Padding="0" Spacing="0" >

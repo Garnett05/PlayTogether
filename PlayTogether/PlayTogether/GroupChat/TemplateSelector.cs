@@ -23,7 +23,7 @@ namespace PlayTogether.GroupChat
             if (messageVm == null)
                 return null;
 
-            return (messageVm.id_user == Globais.userId) ? outgoingDataTemplate : incomingDataTemplate;
+            return (messageVm.IdUser == Globais.userId) ? outgoingDataTemplate : incomingDataTemplate;
         }
     }
 }

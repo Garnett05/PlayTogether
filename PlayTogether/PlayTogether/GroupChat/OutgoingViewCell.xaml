@@ -11,7 +11,7 @@
             HasShadow="false"
             Margin="80,10,10,10">
         <StackLayout Orientation="Horizontal">
-            <Label Text="{Binding message}" TextColor="White"/>
+            <Label Text="{Binding Msg}" TextColor="White"/>
             <Label Text="Você" FontSize="8" HorizontalOptions="EndAndExpand" VerticalOptions="End" Margin="3, 0, 0, 0" MinimumWidthRequest="20" />
             <!--<Label Text="08:00" FontSize="10" HorizontalOptions="End" VerticalOptions="End" />-->
         </StackLayout>

@@ -2,6 +2,7 @@
 using PlayTogether.Group;
 using PlayTogether.Models;
 using PlayTogether.Network;
+using PlayTogether.Services.DialogMessage;
 using PlayTogether.Services.Navigation;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace PlayTogether.Game
     {
         private INetworkService _networkService;
         private INavigationService _navigation;
+        private IDialogMessage _dialogMessage;
+        private bool _isRefreshing;
         private Games _game;
         private Groups _selectedGroup;
         private ObservableCollection<Groups> _groupsByGame;
@@ -48,9 +51,20 @@ namespace PlayTogether.Game
                 OnPropertyChanged("SelectedGroup");
             }
         }
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                OnPropertyChanged("IsRefreshing");
+            }
+        }
+
         public ICommand PreviousPageCommand { get => new Command(async () => await PreviousPage()); }
         public ICommand CreateGroupCommand { get => new Command(async () => await CreateGroup()); }
         public ICommand EnterGroupCommand { get => new Command(async () => await EnterGroup()); }
+        public ICommand RefreshCommand { get => new Command(async () => await GetGamesData()); }
 
         public async override Task InitializeAsync(object parameter)
         {
@@ -60,21 +74,32 @@ namespace PlayTogether.Game
                 await GetGamesData();
             }
         }
-        public GameViewModel(INetworkService networkService, INavigationService navigation)
+        public GameViewModel(INetworkService networkService, INavigationService navigation, IDialogMessage dialogMessage)
         {
             _networkService = networkService;
             _navigation = navigation;
+            _dialogMessage = dialogMessage;
         }
         private async Task GetGamesData()
         {
-            var result = await _networkService.GetAsync<List<Groups>>(Constants.GetAllGroups());
-            GroupsByGame = new ObservableCollection<Groups>();
-            foreach (Groups x in result)
+            try
             {
-                if (int.Parse(x.idGame) == Game.id)
+                IsRefreshing = true;
+                var result = await _networkService.GetAsync<List<Groups>>(Constants.GetAllGroups());
+                GroupsByGame = new ObservableCollection<Groups>();
+                foreach (Groups x in result)
                 {
-                    GroupsByGame.Add(x);
+                    if (int.Parse(x.idGame) == Game.id)
+                    {
+                        GroupsByGame.Add(x);
+                    }
                 }
+                IsRefreshing = false;
+            }
+            catch(Exception e)
+            {
+                await _dialogMessage.DisplayAlert("Erro", e.Message, "Ok");
+                IsRefreshing = false;
             }
             //GroupsByGame = new ObservableCollection<Groups>(result);
             //GameList = new ObservableCollection<Games>(result);

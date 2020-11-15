@@ -11,7 +11,7 @@
         <ScrollView>
             <StackLayout Spacing="0">
                 <Label Text="Flipper" FontSize="30" TextColor="White" HorizontalOptions="Center" VerticalOptions="StartAndExpand" Margin="0, 0, 15, 15" />
-                <Label Text="Aqui você irá prosseguir com o seu cadastro. Precisamos de algumas informações básicas suas para poder prosseguir com a criação da sua conta para que você possa iniciar a sua experiência conosco!" Margin="10, 10, 10, 30" HorizontalOptions="Center" Style="{StaticResource lblWhite}" FontSize="12" />
+                <Label Text="Aqui você irá prosseguir com o seu cadastro. Precisamos de algumas informações básicas suas para poder prosseguir com a criação da sua conta para que você possa iniciar a sua experiência conosco!" Margin="10, 10, 10, 30" HorizontalOptions="Center" Style="{StaticResource lblWhite}" HorizontalTextAlignment="Center" FontSize="12" />
                 <Label Text="Nome:" Style="{StaticResource lblCreateUser}" />
                 <Entry Placeholder="Digite seu nome" Style="{StaticResource entryCreateUser}" Text="{Binding Name}" />
                 <Label Text="Idade:" Style="{StaticResource lblCreateUser}" />
@@ -35,7 +35,7 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout Margin="25, 10, 25, 10" >
-                                        <Image Source="{Binding image_url}" HeightRequest="70" />
+                                        <Image Source="{Binding ImageUrl}" HeightRequest="70" />
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

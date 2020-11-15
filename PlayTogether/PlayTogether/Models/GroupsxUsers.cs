@@ -7,7 +7,7 @@ namespace PlayTogether.Models
     public class GroupsxUsers
     {
         public int id { get; set; }
-        public string id_user { get; set; }
-        public string id_group { get; set; }
+        public int idUser { get; set; }
+        public int idGroup { get; set; }
     }
 }

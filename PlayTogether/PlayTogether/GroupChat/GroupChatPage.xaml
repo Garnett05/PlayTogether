@@ -15,13 +15,13 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-        <Image Source="ic_arrow_back.png" HeightRequest="50" HorizontalOptions="StartAndExpand" >
+        <Image Style="{StaticResource backBtn}" >
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
             </Image.GestureRecognizers>
         </Image>
         <StackLayout Orientation="Horizontal" Margin="0, 10, 0, 0" >
-            <Image Source="{Binding Group.image_url}" HeightRequest="70" />
+            <Image Source="{Binding Group.imageUrl}" HeightRequest="70" />
             <Label Text="{Binding Group.name}" FontSize="30" TextColor="White" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Margin="0, 0, 15, 0" />            
         </StackLayout>
         <Grid RowSpacing="0" 
@@ -31,6 +31,9 @@
                 <ListView Grid.Row="0" Grid.ColumnSpan="2" 
                  ItemTemplate="{StaticResource MessageTemplateSelector}" 
                  ItemsSource="{Binding Messages}" 
+                 IsPullToRefreshEnabled="True"
+                 RefreshCommand="{Binding UpdateMessagesCommand}"
+                 IsRefreshing="{Binding IsRefreshing}"
                  Margin="0" 
                  HasUnevenRows="True" 
                  VerticalOptions="FillAndExpand" 

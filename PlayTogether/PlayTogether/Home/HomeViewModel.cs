@@ -74,17 +74,12 @@ namespace PlayTogether.Home
         public ICommand GameChangedCommand { get => new Command(async () => await GoToGameDetails()); }
         public ICommand PerformLogoutCommand { get => new Command(async () => await PerformLogout()); }
         
-        //public ICommand DeleteCommand { get => new Command(() => DeleteGame()); }
-        //public ICommand CreateCommand { get => new Command(async () => await CreateGame()); }
-        //
-
         public HomeViewModel(INetworkService networkService, INavigationService navigation, IDialogMessage dialogMessage)
         {
             _networkService = networkService;
             _navigation = navigation;
             _dialogMessage = dialogMessage;
-            GetGamesData();
-            //_dialogMessage = dialogMessage;
+            GetGamesData();            
         }
         private async Task GetGamesData()
         {
@@ -138,18 +133,6 @@ namespace PlayTogether.Home
             var container = builder.Build();
             navigationPage = new NavigationPage(container.Resolve<Login.LoginPage>());
             Application.Current.MainPage = navigationPage;
-        }
-        /*private async void DeleteGame()
-        {
-            await _networkService.DeleteAsync(Constants.DeleteGame(12));            
-        }
-        
-        private async Task CreateGame()
-        {
-            Games gm = new Games() { name = "Name test", description = "Description test", imageUrl = "url test"};            
-            string json = JsonConvert.SerializeObject(gm);
-            var result = await _networkService.PostAsync<Games>(Constants.GetAllGames(), json);
-        }
-        */
+        }        
     }
 }

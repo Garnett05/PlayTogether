@@ -12,6 +12,7 @@ using Xamarin.Forms;
 using PlayTogether.GroupChat;
 using Rg.Plugins.Popup.Services;
 using Rg.Plugins.Popup.Pages;
+using PlayTogether.User;
 
 namespace PlayTogether.Services.Navigation
 {
@@ -35,7 +36,8 @@ namespace PlayTogether.Services.Navigation
             { typeof(TabbedHomeViewModel), typeof(TabbedHomePage)},
             {typeof(CreateUserViewModel), typeof(CreateUserPage) },
             {typeof(GroupChatViewModel), typeof(GroupChatPage) },
-            {typeof(GroupPlayerInfoViewModel), typeof(GroupPlayerInfoPage) }
+            {typeof(GroupPlayerInfoViewModel), typeof(GroupPlayerInfoPage) },
+            {typeof(UserChangeIconViewModel), typeof(UserChangeIconPage) }
         };
 
         public NavigationService(Func<INavigation> navigation, IComponentContext container)

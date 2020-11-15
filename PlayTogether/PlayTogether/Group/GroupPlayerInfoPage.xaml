@@ -19,7 +19,7 @@
 
     <Frame CornerRadius="8" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#2F4259" HeightRequest="300" WidthRequest="250" >
         <StackLayout BackgroundColor="#2F4259" HorizontalOptions="Center" VerticalOptions="Start" Padding="10, 5" Spacing="3" >
-            <Image Source="{Binding user_image}" HeightRequest="150" Margin="0, 0, 0, 15" />
+            <Image Source="{Binding imageUrl}" HeightRequest="150" Margin="0, 0, 0, 15" />
             <Label TextColor="White" >
                 <Label.FormattedText>
                     <FormattedString>

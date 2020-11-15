@@ -32,9 +32,20 @@ namespace PlayTogether.Network
 
             return result;
         }
+        public async Task<TResult> PutAsync<TResult>(string url, string jsonData)
+        {
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PutAsync(url, content);
+
+            string serialized = await response.Content.ReadAsStringAsync();
+            TResult result = JsonConvert.DeserializeObject<TResult>(serialized);
+
+            return result;
+        }
         public async Task DeleteAsync(string url)
         {
             await _httpClient.DeleteAsync(url);
         }
+        
     }
 }

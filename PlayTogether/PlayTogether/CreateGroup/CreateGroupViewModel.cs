@@ -20,8 +20,8 @@ namespace PlayTogether.CreateGroup
         private INavigationService _navigation;
         private INetworkService _networkService;
         private IDialogMessage _dialogMessage;
-        private GamesIcons _selectedIcon;
-        private ObservableCollection<GamesIcons> _icons;
+        private IconsGroup _selectedIcon;
+        private ObservableCollection<IconsGroup> _icons;
         private double _sliderValue;
         private string _groupName;
         public double MaximumSliderValue { get; set; }
@@ -45,7 +45,7 @@ namespace PlayTogether.CreateGroup
                 OnPropertyChanged("GroupName");
             }
         }
-        public GamesIcons SelectedIcon
+        public IconsGroup SelectedIcon
         {
             get { return _selectedIcon; }
             set
@@ -54,7 +54,7 @@ namespace PlayTogether.CreateGroup
                 OnPropertyChanged("SelectedIcon");
             }
         }
-        public ObservableCollection<GamesIcons> Icons
+        public ObservableCollection<IconsGroup> Icons
         {
             get { return _icons; }
             set
@@ -107,25 +107,25 @@ namespace PlayTogether.CreateGroup
                 }
                 else
                 {
-                    var numberOfGroups = await _networkService.GetAsync<List<Groups>>(Constants.GetAllGroups());//Quando estiver usando a API,
-                    Groups maxIdGroup = new Groups();                                                           //remover este trecho 
-                    maxIdGroup = numberOfGroups.OrderByDescending(x => x.id).FirstOrDefault();                  //pois a API usará o autoIncrement da tabela
+                    //var numberOfGroups = await _networkService.GetAsync<List<Groups>>(Constants.GetAllGroups());//Quando estiver usando a API,
+                    //Groups maxIdGroup = new Groups();                                                           //remover este trecho 
+                    //maxIdGroup = numberOfGroups.OrderByDescending(x => x.id).FirstOrDefault();                  //pois a API usará o autoIncrement da tabela
                     Groups group = new Groups()
-                    {
-                        id = maxIdGroup.id+1,
+                    {                        
                         name = GroupName,
-                        image_url = SelectedIcon.image_url,
-                        numberPlayer = SliderValue.ToString(),
+                        imageUrl = SelectedIcon.imageUrl,
+                        numberPlayers = SliderValue.ToString(),
                         idGame = Game.id.ToString(),
                         idUserGroupLeader = Globais.userId.ToString()
                     };
 
                     string json = JsonConvert.SerializeObject(group);
                     var result = await _networkService.PostAsync<Groups>(Constants.GetAllGroups(), json);
-                    var result2 = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers()); //Quando estiver usando a API, 
-                    GroupsxUsers maxIdGroupxUser = new GroupsxUsers();                                                //remover este trecho 
-                    maxIdGroupxUser = result2.OrderByDescending(x => x.id).FirstOrDefault();                          //pois a API usará o autoIncrement da tabela
-                    GroupsxUsers userxGroup = new GroupsxUsers() { id = maxIdGroupxUser.id + 1, id_user = Globais.userId.ToString(), id_group = group.id.ToString() }; //Controlando o Max Id do GroupsxUsers por aqui
+                    group.id = result.id;
+                    //var result2 = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers()); //Quando estiver usando a API, 
+                    //GroupsxUsers maxIdGroupxUser = new GroupsxUsers();                                                //remover este trecho 
+                    //maxIdGroupxUser = result2.OrderByDescending(x => x.id).FirstOrDefault();                          //pois a API usará o autoIncrement da tabela
+                    GroupsxUsers userxGroup = new GroupsxUsers() { idUser = Globais.userId, idGroup = result.id };
                     string json2 = JsonConvert.SerializeObject(userxGroup);
                     var result3 = await _networkService.PostAsync<GroupsxUsers>(Constants.GetAllGroupsxUsers(), json2);
                     if (result != null)
@@ -141,8 +141,15 @@ namespace PlayTogether.CreateGroup
         }
         private async Task LoadIcons()
         {
-            var result = await _networkService.GetAsync<List<GamesIcons>>(Constants.GetIcons());
-            Icons = new ObservableCollection<GamesIcons>(result.Where(x => int.Parse(x.id_game) == Game.id));
+            try
+            {
+                var result = await _networkService.GetAsync<List<IconsGroup>>(Constants.GetIcons());
+                Icons = new ObservableCollection<IconsGroup>(result.Where(x => x.idGame == Game.id));
+            }
+            catch (Exception e)
+            {
+                await _dialogMessage.DisplayAlert("Erro", e.Message, "Ok");
+            }
         }
         /*private async Task DefineMaxAndMin()
         {

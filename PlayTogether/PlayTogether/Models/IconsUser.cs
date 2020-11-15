@@ -4,9 +4,9 @@ using System.Text;
 
 namespace PlayTogether.Models
 {
-    public class UsersIcons
+    public class IconsUser
     {
-        public int id { get; set; }
-        public string image_url { get; set; }
+        public int IdIconUser { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

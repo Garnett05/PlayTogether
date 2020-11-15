@@ -69,7 +69,7 @@ namespace PlayTogether.Login
                     //await _navigation.PushAsync<TabbedHomeViewModel>();
                     await _dialogMessage.DisplayAlert("Não encontrado", "Não existe um usuário com este e-mail.", "Ok");
                 }
-                else if (User.password != Password)
+                else if (User.psw != Password)
                 {
                     await _dialogMessage.DisplayAlert("Senha incorreta", "A senha digitada está incorreta. Tente novamente.", "Ok");
                 }                
@@ -83,6 +83,10 @@ namespace PlayTogether.Login
             catch(WebException)
             {
                 await _dialogMessage.DisplayAlert("Erro", "Verifique sua conexão com a internet para prosseguir com o login.", "Ok");
+            }
+            catch(Exception e)
+            {
+                await _dialogMessage.DisplayAlert(e.GetType().ToString(), e.Message, "Ok");
             }
         }
         private async Task ForgotPassword()

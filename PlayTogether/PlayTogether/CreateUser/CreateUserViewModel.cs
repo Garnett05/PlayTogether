@@ -5,11 +5,8 @@ using PlayTogether.Network;
 using PlayTogether.Services.DialogMessage;
 using PlayTogether.Services.Navigation;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -22,15 +19,15 @@ namespace PlayTogether.CreateUser
         private INetworkService _networkService;
         private INavigationService _navigation;
         private IDialogMessage _dialogMessage;
-        private ObservableCollection<UsersIcons> _icons;
-        private UsersIcons _selectedIcon;
+        private ObservableCollection<IconsUser> _icons;
+        private IconsUser _selectedIcon;
         private string _name;
         private string _email;
         private string _nickname;
         private string _password;
         private string _passwordConfirm;
         private int _age;
-        public UsersIcons SelectedIcon
+        public IconsUser SelectedIcon
         {
             get { return _selectedIcon; }
             set
@@ -94,7 +91,7 @@ namespace PlayTogether.CreateUser
             }
             
         }
-        public ObservableCollection<UsersIcons> Icons
+        public ObservableCollection<IconsUser> Icons
         {
             get { return _icons; }
             set
@@ -117,30 +114,54 @@ namespace PlayTogether.CreateUser
         }
         private async Task LoadIcons()
         {
-            Icons = await _networkService.GetAsync<ObservableCollection<UsersIcons>>(Constants.GetUsersIcons());
-        }
-        //TODO - Validações no método abaixo (e-mail, senha, idade...)
+            try
+            {
+                Icons = await _networkService.GetAsync<ObservableCollection<IconsUser>>(Constants.GetUsersIcons());
+            }
+            catch(Exception e)
+            {
+                await _dialogMessage.DisplayAlert("Erro", e.Message, "Ok");
+            }
+        }        
         public async Task CreateUser()
         {            
             try
             {
-                var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());//Quando estiver usando a API,
-                Users maxIdUser = new Users();                                                    //remover este trecho 
-                maxIdUser = result.OrderByDescending(x => x.id).FirstOrDefault();                 //pois a API usará o autoIncrement da tabela                                
+                //var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());//Quando estiver usando a API,
+                //Users maxIdUser = new Users();                                                    //remover este trecho 
+                //maxIdUser = result.OrderByDescending(x => x.id).FirstOrDefault();                 //pois a API usará o autoIncrement da tabela                                
                 Users newUser = new Users()
-                {
-                    id = maxIdUser.id + 1,
+                {                    
                     name = Name,
                     age = Age,
                     nickname = Nickname,
                     email = Email,
-                    password = Password,
-                    user_image = SelectedIcon.image_url
+                    psw = Password, 
+                    imageUrl = SelectedIcon.ImageUrl
                 };
-                string json = JsonConvert.SerializeObject(newUser);
-                await _networkService.PostAsync<Users>(Constants.GetAllUsers(), json);
-                Globais.userId = newUser.id;
-                Login();
+                bool emailIsValid = EmailValidation();
+                //bool ageIsValid = AgeValidation();
+                bool equalPassword = PasswordValidation();
+                bool nameIsValid = NameValidation();
+                if (equalPassword == true && emailIsValid == true && nameIsValid == true)
+                {
+                    string json = JsonConvert.SerializeObject(newUser);
+                    var result = await _networkService.PostAsync<Users>(Constants.GetAllUsers(), json);
+                    Globais.userId = result.id;
+                    Login();
+                }
+                else if (nameIsValid == false)
+                {
+                    await _dialogMessage.DisplayAlert("Atenção", "O nome e nickname precisam obrigatoriamente ser preenchidos", "Ok");
+                }
+                else if (emailIsValid == false)
+                {
+                    await _dialogMessage.DisplayAlert("Atenção", "O e-mail informado não é válido. Por favor informe um endereço de e-mail válido", "Ok");
+                }
+                else if (equalPassword == false)
+                {
+                    await _dialogMessage.DisplayAlert("Atenção", "As senhas informadas são diferentes. Por favor preencha a mesma senha nos dois campos", "Ok");
+                }                
             }
             catch(Exception e)
             {
@@ -182,7 +203,7 @@ namespace PlayTogether.CreateUser
             }
             return false;
         }
-        private bool EmailValidation()
+        public bool EmailValidation()
         {
             try
             {
@@ -193,6 +214,14 @@ namespace PlayTogether.CreateUser
             {
                 return false;
             }
+        }
+        public bool NameValidation()
+        {
+            if (Name.Trim().Length > 0 && Nickname.Trim().Length > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

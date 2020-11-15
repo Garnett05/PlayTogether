@@ -30,6 +30,7 @@ namespace PlayTogether.Group
         private bool _entrarButton;
         private bool _deleteButton;
         private bool _messagesButton;
+        private bool _isRefreshing;
         public bool MessagesButton
         {
             get { return _messagesButton; }
@@ -55,6 +56,15 @@ namespace PlayTogether.Group
             {
                 _entrarButton = value;
                 OnPropertyChanged("EntrarButton");
+            }
+        }
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                OnPropertyChanged("IsRefreshing");
             }
         }
         public ObservableCollection<Users> GroupUsers
@@ -99,13 +109,14 @@ namespace PlayTogether.Group
         public ICommand JoinGroupCommand { get => new Command(async () => await JoinGroup()); }
         public ICommand DeleteGroupCommand { get => new Command(async () => await DeleteGroup()); }
         public ICommand NavigateChatPageCommand { get => new Command(async () => await NavigateChatPage()); }
-        public ICommand ShowPlayerInfoCommand { get => new Command(async () => await NavigatePlayerInfoPage()); }        
+        public ICommand ShowPlayerInfoCommand { get => new Command(async () => await NavigatePlayerInfoPage()); }
+        public ICommand RefreshCommand { get => new Command(async () => await LoadUsersFromThisGroup()); }        
 
         public async override Task InitializeAsync(object parameter)
         {
             Group = (Groups)parameter;
             await LoadUsersFromThisGroup();
-            GroupParticipants = $"Integrantes - {GroupxUsers.Count}/{Group.numberPlayer}";
+            GroupParticipants = $"Integrantes - {GroupxUsers.Count}/{Group.numberPlayers}";
         }
 
         public GroupViewModel(INavigationService navigation, INetworkService networkService, IDialogMessage dialogMessage)
@@ -123,11 +134,12 @@ namespace PlayTogether.Group
         {
             try
             {
+                IsRefreshing = true;
                 var result = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers());
                 GroupxUsers = new ObservableCollection<GroupsxUsers>();
                 foreach (GroupsxUsers g in result)
                 {
-                    if (int.Parse(g.id_group) == Group.id)
+                    if (g.idGroup == Group.id)
                     {
                         GroupxUsers.Add(g);
                     }
@@ -136,7 +148,7 @@ namespace PlayTogether.Group
                 GroupUsers = new ObservableCollection<Users>();
                 foreach (Users u in result2)
                 {
-                    if (GroupxUsers.Any(x => int.Parse(x.id_user) == u.id))
+                    if (GroupxUsers.Any(x => x.idUser == u.id))
                     {
                         GroupUsers.Add(u);
                     }
@@ -152,6 +164,8 @@ namespace PlayTogether.Group
                     EntrarButton = false;
                     MessagesButton = true;
                 }
+                GroupParticipants = $"Integrantes - {GroupxUsers.Count}/{Group.numberPlayers}";
+                IsRefreshing = false;
 
                 if (int.Parse(Group.idUserGroupLeader) == Globais.userId)
                 {
@@ -166,56 +180,60 @@ namespace PlayTogether.Group
         }
         private async Task JoinGroup()
         {
-            var result3 = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
-            Users user = new Users();
-            user = result3.Where(x => x.id == Globais.userId).FirstOrDefault();
-            if (GroupUsers.Any(x => x.id == user.id))
+            try
             {
-                await _dialogMessage.DisplayAlert("Aviso", "Você já está nesse grupo!", "Ok");
-            }
-            else if (int.Parse(Group.numberPlayer) == GroupxUsers.Count())
-            {
-                await _dialogMessage.DisplayAlert("Aviso", "Este grupo já está cheio. Aguarde que ele fique vazio, ou procure um outro grupo deste mesmo jogo.", "Ok");
-            }
-            else
-            {
-                try
+                var result3 = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
+                Users user = new Users();
+                user = result3.Where(x => x.id == Globais.userId).FirstOrDefault();
+                if (GroupUsers.Any(x => x.id == user.id))
                 {
-                    var result = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers()); //Quando estiver usando a API, 
-                    GroupsxUsers maxId = new GroupsxUsers();                                                         //remover este trecho 
-                    maxId = result.OrderByDescending(x => x.id).FirstOrDefault();                                    //pois a API usará o autoIncrement da tabela
-                    GroupsxUsers userxGroup = new GroupsxUsers() { id = maxId.id + 1, id_user = Globais.userId.ToString(), id_group = Group.id.ToString() };
+                    await _dialogMessage.DisplayAlert("Aviso", "Você já está nesse grupo!", "Ok");
+                }
+                else if (int.Parse(Group.numberPlayers) == GroupxUsers.Count())
+                {
+                    await _dialogMessage.DisplayAlert("Aviso", "Este grupo já está cheio. Aguarde que ele fique vazio, ou procure um outro grupo deste mesmo jogo.", "Ok");
+                }
+                else
+                {
+                    GroupsxUsers userxGroup = new GroupsxUsers() { idUser = Globais.userId, idGroup = Group.id };
                     string json = JsonConvert.SerializeObject(userxGroup);
                     var result2 = await _networkService.PostAsync<GroupsxUsers>(Constants.GetAllGroupsxUsers(), json);
                     GroupxUsers.Add(userxGroup);
                     GroupUsers.Add(user);
-                    GroupParticipants = $"Integrantes - {GroupxUsers.Count}/{Group.numberPlayer}";
+                    GroupParticipants = $"Integrantes - {GroupxUsers.Count}/{Group.numberPlayers}";
                     EntrarButton = false;
                     MessagesButton = true;
                 }
-                catch (Exception e)
-                {
-                    await _dialogMessage.DisplayAlert(e.GetType().Name, e.Message, "Ok");
-                }
+            }
+            catch (Exception e)
+            {
+                await _dialogMessage.DisplayAlert("Erro", e.Message, "Ok");
             }
         }
         private async Task DeleteGroup()
         {
-            var result = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers());
-            ObservableCollection<GroupsxUsers> result2 = new ObservableCollection<GroupsxUsers>(result.Where(x => int.Parse(x.id_group) == Group.id));
-            result.Clear();
-
-            foreach (GroupsxUsers gu in result2)
+            try
             {
-                await _networkService.DeleteAsync(Constants.DeleteGroupxUser(gu.id));
-            }            
+                var result = await _networkService.GetAsync<List<GroupsxUsers>>(Constants.GetAllGroupsxUsers());
+                ObservableCollection<GroupsxUsers> result2 = new ObservableCollection<GroupsxUsers>(result.Where(x => x.idGroup == Group.id));
+                result.Clear();
 
-            bool s = await _dialogMessage.DisplayAlertOptions("Atenção", "Você está prestes a excluir o grupo. Deseja prosseguir com essa ação?", "Não", "Sim");
-            if (s == false)
+                foreach (GroupsxUsers gu in result2)
+                {
+                    await _networkService.DeleteAsync(Constants.DeleteGroupxUser(gu.id));
+                }
+
+                bool s = await _dialogMessage.DisplayAlertOptions("Atenção", "Você está prestes a excluir o grupo. Deseja prosseguir com essa ação?", "Não", "Sim");
+                if (s == false)
+                {
+                    await _networkService.DeleteAsync(Constants.DeleteGroup(Group.id));
+                    await _dialogMessage.DisplayAlert("Ação realizada", "O grupo foi excluído.", "Ok");
+                    GoBackHomePage();
+                }
+            }
+            catch(Exception e)
             {
-                await _networkService.DeleteAsync(Constants.DeleteGroup(Group.id));
-                await _dialogMessage.DisplayAlert("Ação realizada", "O grupo foi excluído.", "Ok");
-                GoBackHomePage();
+                await _dialogMessage.DisplayAlert("Erro", e.Message, "Ok");
             }
         }
         private void GoBackHomePage()
@@ -246,15 +264,22 @@ namespace PlayTogether.Group
             {
                 return;
             }
-            int idSelectedUser = SelectedUser.id;
-            var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
-            Users user = new Users();
-            user = result.Where(x => x.id == idSelectedUser).FirstOrDefault();
-            //await _navigation.PushAsync<GroupPlayerInfoViewModel>(user);
-            //var viewModel = new GroupPlayerInfoViewModel(user);
-            var popupPage = new GroupPlayerInfoPage(user);
-            await PopupNavigation.Instance.PushAsync(popupPage);
-            SelectedUser = null;
+            try
+            {
+                int idSelectedUser = SelectedUser.id;
+                var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
+                Users user = new Users();
+                user = result.Where(x => x.id == idSelectedUser).FirstOrDefault();
+                //await _navigation.PushAsync<GroupPlayerInfoViewModel>(user);
+                //var viewModel = new GroupPlayerInfoViewModel(user);
+                var popupPage = new GroupPlayerInfoPage(user);
+                await PopupNavigation.Instance.PushAsync(popupPage);
+                SelectedUser = null;
+            }
+            catch(Exception e)
+            {
+                await _dialogMessage.DisplayAlert("Erro", e.Message, "Ok");
+            }
         }
 
     }

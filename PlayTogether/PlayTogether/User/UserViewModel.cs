@@ -18,6 +18,7 @@ namespace PlayTogether.User
 
         private INetworkService _networkService;
         private IDialogMessage _dialogMessage;
+        private INavigationService _navigation;
         private Users _user;
         private Games _game;
         private ObservableCollection<Games> _gamesCollection;
@@ -50,43 +51,49 @@ namespace PlayTogether.User
         }
         public ICommand UpdateUserAvatarCommand { get => new Command(async () => await UpdateUserAvatar()); }
 
-        public UserViewModel(INetworkService networkService, IDialogMessage dialogMessage)
+        public UserViewModel(INetworkService networkService, IDialogMessage dialogMessage, INavigationService navigation)
         {
             _networkService = networkService;
             _dialogMessage = dialogMessage;
+            _navigation = navigation;
             GetUser();
             GetGames();
         }
         public async Task GetUser()
         {
-            if (User == null)
+            try
             {
-                var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());
-                if (Globais.userId == 0)
-                {
-                    User = result.Where(x => x.id == 1).FirstOrDefault(); //Alteração para deixar o login mais rápido. O correto é como está na linha de cima. O correto é esse if não existir
-                }
-                else
-                {
-                    User = result.Where(x => x.id == Globais.userId).FirstOrDefault();
-                }                
+                var result = await _networkService.GetAsync<List<Users>>(Constants.GetAllUsers());                
+                User = result.Where(x => x.id == Globais.userId).FirstOrDefault();                
+            }
+            catch(Exception e)
+            {
+                await _dialogMessage.DisplayAlert("Erro", e.Message, "Ok");
             }
         }
         public async Task GetGames()
         {
-            var result = await _networkService.GetAsync<List<Games>>(Constants.GetAllGames());
-            GamesCollection = new ObservableCollection<Games>();
-            foreach (Games x in result)
+            try
             {
-                if (!GamesCollection.Contains(x) && GamesCollection.Count < 3)
+                var result = await _networkService.GetAsync<List<Games>>(Constants.GetAllGames());
+                GamesCollection = new ObservableCollection<Games>();
+                foreach (Games x in result)
                 {
-                    GamesCollection.Add(x);
+                    if (!GamesCollection.Contains(x) && GamesCollection.Count < 3)
+                    {
+                        GamesCollection.Add(x);
+                    }
                 }
+            }
+            catch(Exception e)
+            {
+                await _dialogMessage.DisplayAlert("Erro", e.Message, "Ok");
             }
         }
         private async Task UpdateUserAvatar()
         {
-            await _dialogMessage.DisplayAlert("Aviso", "Este recurso ainda não está disponível. Aguarde a próxima atualização para poder utilizá-lo.", "Ok");
+            //await _dialogMessage.DisplayAlert("Aviso", "Este recurso ainda não está disponível. Aguarde a próxima atualização para poder utilizá-lo.", "Ok");            
+            await _navigation.PushAsync<UserChangeIconViewModel>(User);
         }
     }
 }
