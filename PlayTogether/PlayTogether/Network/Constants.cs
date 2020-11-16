@@ -31,9 +31,10 @@ namespace PlayTogether.Network
             //return "http://192.168.1.59:3000/users";
             return "https://flipperapp.azurewebsites.net/api/users";
         }
-        public static string GetUserById(string user)
+        public static string GetUserById(int user)
         {
-            return $"http://192.168.1.59:3000/users/{user}";
+            //return $"http://192.168.1.59:3000/users/{user}";
+            return $"https://flipperapp.azurewebsites.net/api/users/{user}";
         }
         public static string DeleteGame(int id)
         {

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Autofac;
+using Newtonsoft.Json;
 using PlayTogether.Models;
 using PlayTogether.Network;
 using PlayTogether.Services.DialogMessage;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -85,9 +87,9 @@ namespace PlayTogether.User
                     user = result.Where(x => x.id == Globais.userId).FirstOrDefault();
                     user.imageUrl = SelectedIcon.ImageUrl;
                     string json = JsonConvert.SerializeObject(user);
-                    var result2 = await _networkService.PutAsync<Users>(Constants.GetAllUsers(), json);
+                    var result2 = await _networkService.PutAsync<Users>(Constants.GetUserById(Globais.userId), json);
                     await _dialogMessage.DisplayAlert("Alteração realizada", "Imagem alterada com sucesso", "Ok");
-                    await _navigation.PopAsync();
+                    BackHomePage();
                 }
                 catch (NullReferenceException)
                 {
@@ -98,6 +100,24 @@ namespace PlayTogether.User
                     await _dialogMessage.DisplayAlert("Erro", e.Message, "Ok");
                 }
             }
+        }
+        private void BackHomePage()
+        {
+            var builder = new ContainerBuilder();
+            var dataAccess = Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(dataAccess)
+                .AsImplementedInterfaces()
+                .AsSelf();
+            NavigationPage navigationPage = null;
+            Func<INavigation> navigationFunc = () =>
+            {
+                return navigationPage.Navigation;
+            };
+            builder.RegisterType<NavigationService>().As<INavigationService>()
+                .WithParameter("navigation", navigationFunc);
+            var container = builder.Build();
+            navigationPage = new NavigationPage(container.Resolve<TabbedHome.TabbedHomePage>());
+            Application.Current.MainPage = navigationPage;
         }
     }
 }

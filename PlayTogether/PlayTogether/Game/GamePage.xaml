@@ -41,14 +41,12 @@
                                 <DataTemplate>
                                     <StackLayout>
                                         <Image Source="{Binding imageUrl}" />
-
                                         <Label Text="{Binding name}" HorizontalOptions="Center" Margin="0, -5, 0, 10" TextColor="Black" />
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                    </RefreshView>
-                    
+                    </RefreshView>                    
                 </StackLayout>
             </Frame>
         </StackLayout>

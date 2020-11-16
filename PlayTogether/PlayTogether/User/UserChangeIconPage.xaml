@@ -21,7 +21,7 @@
                 ItemsLayout="VerticalGrid, 3"
                 ItemsSource="{Binding Icons}"
                 SelectedItem="{Binding SelectedIcon}"
-                SelectionMode="Single" >                
+                SelectionMode="Single" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Margin="45, 10, 45, 10" >

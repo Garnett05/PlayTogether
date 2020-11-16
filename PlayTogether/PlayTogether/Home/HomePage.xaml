@@ -21,8 +21,7 @@
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding PerformLogoutCommand }"/>
                 </StackLayout.GestureRecognizers>
-            </StackLayout>
-            
+            </StackLayout>            
             <CollectionView ItemsSource="{Binding GameList}" Margin="10,0,0,10"
                             SelectedItem="{Binding SelectedGame}"
                             SelectionMode="Single"

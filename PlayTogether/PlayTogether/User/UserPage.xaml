@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             
              mc:Ignorable="d"
              x:Class="PlayTogether.User.UserPage"
              Title="Usuário"
@@ -33,15 +33,13 @@
                                                 <Span Text="{Binding User.age}" />
                                             </FormattedString>
                                         </Label.FormattedText>
-                                    </Label>
-                                    
+                                    </Label>                                    
                                 </StackLayout>
-                            </StackLayout >
-                            
+                            </StackLayout >                            
                         </StackLayout>
                         <Frame HeightRequest="210" BackgroundColor="AliceBlue" CornerRadius="10" Margin="5, 0, 5, 0" >
                             <StackLayout Padding="0" Spacing="0" >
-                                <Label Text="Mais Jogados"  HorizontalOptions="Start" TextColor="Black" FontSize="24" Margin="0, 0, 0, 35"/>
+                                <Label Text="Mais Jogados" HorizontalOptions="Start" TextColor="Black" FontSize="24" Margin="0, 0, 0, 35"/>
                                 <CollectionView
                                 ItemsLayout="HorizontalGrid, 1"
                                 ItemsSource="{Binding GamesCollection}"
